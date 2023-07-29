@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { ReactNode } from 'react';
+import React, { ComponentProps, ReactNode } from 'react';
 import { ButtonComponent } from './styles';
 import Image from 'next/image';
 
-interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
+interface ButtonProps extends React.ComponentProps<'button'> {
 	fill?: boolean;
 	icon?: boolean;
 	buttonSize?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -15,9 +15,10 @@ export const Button: React.FC<ButtonProps> = ({
 	icon = false,
 	buttonSize = 'md',
 	children,
+	...rest
 }: ButtonProps) => {
 	return (
-		<ButtonComponent fill={fill} size={buttonSize}>
+		<ButtonComponent fill={fill} buttonSize={buttonSize} {...rest}>
 			{children}
 			{icon && (
 				<Image
