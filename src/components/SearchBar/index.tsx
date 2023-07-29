@@ -1,26 +1,48 @@
-import React from 'react';
-import { InputContainer, SearchBarContainer } from './styles';
-import Image from 'next/image';
+import React, { FormEvent, useState } from 'react';
+import {
+	// IconContainer,
+	// InputContainer,
+	SearchBarContainer,
+	// SearchBarWrapper,
+} from './styles';
+// import Image from 'next/image';
+import { InputComponent } from '../Input';
+import { api } from '@/lib/axios';
+import { EnterpriseProps } from '@/@types/Enterprise';
+import { useEnterprise } from '@/hooks/useEnterprise';
+
+interface Response {
+	data: EnterpriseProps[];
+}
 
 export const SearchBar = () => {
+	const [searchQuery, setSearchQuery] = useState('');
+
+	const { handleSetEnterprises } = useEnterprise();
+
+	const handleSearchEnterprise = async (e: FormEvent) => {
+		e.preventDefault();
+
+		try {
+			const searchResponse: Response = await api.get(
+				`/enterprises/?q=${searchQuery}`,
+			);
+			const searchQueryResults = searchResponse.data;
+
+			handleSetEnterprises(searchQueryResults);
+		} catch (error) {
+			console.log({ error });
+		}
+	};
+
 	return (
-		<SearchBarContainer>
-			<InputContainer className='input-container'>
-				<div className='icon-container'>
-					<i className='icon'>
-						<Image
-							src='/assets/search-icon.svg'
-							alt=''
-							width={16}
-							height={16}
-						/>
-					</i>
-				</div>
-				<div className='input-wrapper'>
-					<input type='text' placeholder='Your Placeholder' />
-					<div className='bottom-line'></div>
-				</div>
-			</InputContainer>
+		<SearchBarContainer onSubmit={handleSearchEnterprise}>
+			<InputComponent
+				icon
+				placeholder='Buscar'
+				value={searchQuery}
+				onChange={e => setSearchQuery(e.target.value)}
+			/>
 		</SearchBarContainer>
 	);
 };
