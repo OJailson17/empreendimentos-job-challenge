@@ -1,4 +1,3 @@
-import React from 'react';
 import {
 	EnterpriseLeftContainer,
 	EnterpriseRightContainer,
@@ -6,21 +5,58 @@ import {
 } from './styles';
 import { Button } from '../Button';
 import Image from 'next/image';
+import { useEnterprise } from '@/hooks/useEnterprise';
+import { api } from '@/lib/axios';
+import { EnterpriseProps } from '@/@types/Enterprise';
 
-export const Enterprise = () => {
+interface EnterpriseComponentProps {
+	enterprise: EnterpriseProps;
+}
+
+const Status = {
+	'SOON-RELEASE': 'Breve Lançamento',
+	RELEASE: 'Lançamento',
+	BUILDING: 'Em obras',
+	READY: 'Pronto pra mmorar',
+};
+
+const Purpose = {
+	COMMERCIAL: 'Comercial',
+	HOME: 'Residencial',
+};
+
+export const Enterprise = ({ enterprise }: EnterpriseComponentProps) => {
+	const { enterprises, handleSetEnterprises } = useEnterprise();
+
+	console.log('component', enterprises);
+
+	const handleDeleteEnterprise = async () => {
+		try {
+			await api.delete(`/enterprises/${enterprise.id}`);
+
+			const formattedEnterprises = enterprises.filter(
+				enterprise_el => enterprise_el.id !== enterprise.id,
+			);
+
+			handleSetEnterprises(formattedEnterprises);
+		} catch (error) {
+			console.log({ error });
+		}
+	};
+
 	return (
 		// Container
 		<EnterpriseWrapper>
 			{/* First inner container */}
 			<EnterpriseLeftContainer>
 				<div>
-					<p>Villega Vila Velha</p>
+					<p>{enterprise.name}</p>
 					{/* icons */}
 					<div className='actions'>
 						<button>
 							<Image src='/assets/pen-icon.svg' alt='' width={18} height={18} />
 						</button>
-						<button>
+						<button onClick={handleDeleteEnterprise}>
 							<Image
 								src='/assets/trash-icon.svg'
 								alt=''
@@ -31,13 +67,16 @@ export const Enterprise = () => {
 					</div>
 				</div>
 
-				<span>Rua Dório Silva, 100 - Vila Guaranhuns, Vila Velha</span>
+				<span>
+					{enterprise.address.street}, {enterprise.address.number} -{' '}
+					{enterprise.address.district}, {enterprise.address.city}
+				</span>
 			</EnterpriseLeftContainer>
 
 			{/* Second inner container */}
 			<EnterpriseRightContainer>
-				<Button fill={false}>Lançamento</Button>
-				<Button fill={false}>Residencial</Button>
+				<Button fill={false}>{Status[enterprise.status]}</Button>
+				<Button fill={false}>{Purpose[enterprise.purpose]}</Button>
 			</EnterpriseRightContainer>
 		</EnterpriseWrapper>
 	);
