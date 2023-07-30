@@ -1,11 +1,11 @@
 // components/Modal.js
 
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
 import {
 	CloseButton,
-	InputWrapper,
 	ModalContent,
 	ModalForm,
+	ModalInputWrapper,
 	ModalTitle,
 	ModalWrapper,
 	// Select,
@@ -13,29 +13,68 @@ import {
 import { Button } from '../Button';
 import Image from 'next/image';
 import { InputComponent } from '../Input';
-import CustomSelect from '../CustomSelect';
 import { api } from '@/lib/axios';
-import { EnterpriseProps } from '@/@types/Enterprise';
+import {
+	EnterpriseProps,
+	PurposeProps,
+	StatusProps,
+} from '@/@types/Enterprise';
 import { useForm } from 'react-hook-form';
+import { SelectComponent } from '../Input/SelectComponent';
+import { useEnterprise } from '@/hooks/useEnterprise';
 
 interface ModalProps {
 	onClose: () => void;
 }
 
-// const options = [
-// 	{ value: 'option1', label: 'Option 1' },
-// 	{ value: 'option2', label: 'Option 2' },
-// 	{ value: 'option3', label: 'Option 3' },
-// 	// Add more options as needed
-// ];
+interface Response {
+	data: EnterpriseProps;
+}
+
+const enterprisePurposeOptions = [
+	{
+		value: 'HOME',
+		label: 'Residencial',
+	},
+	{
+		value: 'COMMERCIAL',
+		label: 'Comercial',
+	},
+];
+
+const enterpriseStatusOptions = [
+	{
+		value: 'SOON-RELEASE',
+		label: 'Breve Lançamento',
+	},
+	{
+		value: 'RELEASE',
+		label: 'Lançamento',
+	},
+	{
+		value: 'BUILDING',
+		label: 'Em obras',
+	},
+	{
+		value: 'READY',
+		label: 'Pronto pra morar',
+	},
+];
 
 export const Modal = ({ onClose }: ModalProps) => {
-	const handleCreateEnterprise = async (e: any) => {
+	const [status, setStatus] = useState<StatusProps>('RELEASE');
+	const [purpose, setPurpose] = useState<PurposeProps>('HOME');
+	const [name, setName] = useState<string>('');
+	const [cep, setCep] = useState<string>('');
+
+	const { handleSetEnterprises, enterprises } = useEnterprise();
+
+	const handleCreateEnterprise = async (e: FormEvent) => {
 		e.preventDefault();
 
-		const enterprise: EnterpriseProps = {
-			id: 'PA04',
-			name: 'enterprise test',
+		const formatEnterprise: EnterpriseProps = {
+			id: 'PA05',
+			name: name,
 			address: {
 				city: 'city',
 				street: 'street',
@@ -44,14 +83,21 @@ export const Modal = ({ onClose }: ModalProps) => {
 				number: '12',
 				cep: '47901212',
 			},
-			purpose: 'HOME',
-			status: 'RELEASE',
+			purpose: purpose,
+			status: status,
 		};
 
+		console.log({
+			status,
+			purpose,
+			name,
+			cep,
+		});
+
 		try {
-			const createEnterpriseResponse = await api.post(
+			const createEnterpriseResponse: Response = await api.post(
 				'/enterprises',
-				enterprise,
+				formatEnterprise,
 				{
 					headers: {
 						'Content-Type': 'application/json',
@@ -59,6 +105,9 @@ export const Modal = ({ onClose }: ModalProps) => {
 				},
 			);
 			console.log(createEnterpriseResponse.data);
+			handleSetEnterprises([...enterprises, createEnterpriseResponse.data]);
+
+			onClose();
 		} catch (error) {
 			console.log(error);
 		}
@@ -77,18 +126,34 @@ export const Modal = ({ onClose }: ModalProps) => {
 				</CloseButton>
 				<ModalTitle>Editar Empreendimento</ModalTitle>
 				<ModalForm onSubmit={handleCreateEnterprise}>
-					<InputWrapper>
-						<InputComponent select />
-					</InputWrapper>
-					<InputWrapper>
-						<InputComponent select />
-					</InputWrapper>
-					<InputWrapper>
-						<InputComponent placeholder='Nome do empreendimento' />
-					</InputWrapper>
-					<InputWrapper>
-						<InputComponent placeholder='CEP' />
-					</InputWrapper>
+					<ModalInputWrapper>
+						<SelectComponent
+							options={enterpriseStatusOptions}
+							value={status}
+							onChange={(e: any) => setStatus(e.target.value)}
+						/>
+					</ModalInputWrapper>
+					<ModalInputWrapper>
+						<SelectComponent
+							options={enterprisePurposeOptions}
+							value={purpose}
+							onChange={(e: any) => setPurpose(e.target.value)}
+						/>
+					</ModalInputWrapper>
+					<ModalInputWrapper>
+						<InputComponent
+							placeholder='Nome do empreendimento'
+							value={name}
+							onChange={e => setName(e.target.value)}
+						/>
+					</ModalInputWrapper>
+					<ModalInputWrapper>
+						<InputComponent
+							placeholder='CEP'
+							value={cep}
+							onChange={e => setCep(e.target.value)}
+						/>
+					</ModalInputWrapper>
 					<Button type='submit' buttonSize='2xl'>
 						Atualizar
 					</Button>

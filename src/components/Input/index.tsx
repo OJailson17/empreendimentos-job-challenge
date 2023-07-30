@@ -4,7 +4,6 @@ import {
 	InputContainer,
 	// InputMainContainer,
 	InputWrapper,
-	Select,
 } from './styles';
 import Image from 'next/image';
 
@@ -27,18 +26,8 @@ export const InputComponent: React.FC<InputComponentProps> = ({
 				</IconContainer>
 			)}
 			<InputContainer>
-				{select ? (
-					<Select name='' id=''>
-						<option value='soon-release'>Breve Laçamento</option>
-						<option value='release'>Lançamento</option>
-						<option value='building'>Em obras</option>
-						<option value='ready'>Pronto pra morar</option>
-					</Select>
-				) : (
-					<input type='text' {...rest} />
-				)}
+				<input type='text' {...rest} />
 			</InputContainer>
 		</InputWrapper>
-		// </InputMainContainer>
 	);
 };

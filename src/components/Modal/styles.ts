@@ -54,7 +54,7 @@ export const CloseButton = styled.button`
 	justify-content: center;
 `;
 
-export const InputWrapper = styled.div`
+export const ModalInputWrapper = styled.div`
 	width: 100%;
 	max-width: 396px;
 
