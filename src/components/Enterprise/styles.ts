@@ -14,14 +14,22 @@ export const EnterpriseWrapper = styled.div`
 `;
 
 export const EnterpriseLeftContainer = styled.div`
+	width: 70%;
+	/* background: red; */
+
 	& > div {
 		display: flex;
 		gap: 18px;
 
 		p {
+			width: 80%;
 			font-size: 20px;
 			font-weight: bold;
 			line-height: 100%;
+
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
 
 			color: ${({ theme }) => theme.colors['text-color-primary']};
 		}
@@ -52,6 +60,8 @@ export const EnterpriseLeftContainer = styled.div`
 `;
 
 export const EnterpriseRightContainer = styled.div`
+	/* width: 100%; */
+
 	display: flex;
 	align-items: center;
 	justify-content: center;

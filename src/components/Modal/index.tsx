@@ -8,7 +8,6 @@ import {
 	ModalInputWrapper,
 	ModalTitle,
 	ModalWrapper,
-	// Select,
 } from './styles';
 import { Button } from '../Button';
 import Image from 'next/image';
@@ -24,24 +23,15 @@ import { useForm } from 'react-hook-form';
 import { SelectComponent } from '../Input/SelectComponent';
 import { useEnterprise } from '@/hooks/useEnterprise';
 import axios from 'axios';
+import { onGetAddress } from '@/utils/functions/getAddress';
+import { onCreateEnterprise } from '@/utils/functions/createEnterprise';
+import { onUpdateEnterprise } from '@/utils/functions/updateEnterprise';
 
 interface ModalProps {
 	onClose: () => void;
 	mode?: 'create' | 'update';
 	enterpriseId?: string | null;
 	onSubmit?: () => Promise<void>;
-}
-
-interface Response {
-	data: EnterpriseProps;
-}
-
-interface ViaCepResponse {
-	logradouro: string;
-	bairro: string;
-	localidade: string;
-	uf: string;
-	complemento: string;
 }
 
 const enterprisePurposeOptions = [
@@ -84,6 +74,7 @@ export const Modal = ({
 	const [purpose, setPurpose] = useState<PurposeProps>('HOME');
 	const [name, setName] = useState<string>('');
 	const [cep, setCep] = useState<string>('');
+	const [number, setNumber] = useState('');
 	const [address, setAddress] = useState<AddressProps | null>(null);
 
 	console.log(enterpriseId);
@@ -94,103 +85,91 @@ export const Modal = ({
 	const handleCreateEnterprise = async (e: FormEvent) => {
 		e.preventDefault();
 
+		let formattedAddress;
+
+		if (address) {
+			formattedAddress = {
+				city: address.city,
+				street: address.street,
+				district: address.district,
+				state: address.state,
+				number,
+				cep,
+			};
+		}
+
 		const formatEnterprise: EnterpriseProps = {
-			id: 'PA06',
 			name: name,
-			address: {
-				city: 'city',
-				street: 'street',
-				district: 'utinga',
-				state: 'bahia',
-				number: '12',
-				cep: '47901212',
-			},
+			address: formattedAddress || null,
 			purpose,
 			status,
 		};
 
-		console.log({
-			status,
-			purpose,
-			name,
-			cep,
+		const { createdEnterprise, error } = await onCreateEnterprise({
+			enterprise: formatEnterprise,
 		});
 
-		try {
-			const createEnterpriseResponse: Response = await api.post(
-				'/enterprises',
-				formatEnterprise,
-				{
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				},
-			);
-			console.log(createEnterpriseResponse.data);
-			handleSetEnterprises([...enterprises, createEnterpriseResponse.data]);
-
-			onClose();
-		} catch (error) {
-			console.log(error);
-		}
+		if (createdEnterprise)
+			handleSetEnterprises([...enterprises, createdEnterprise]);
+		onClose();
 	};
 
 	const handleUpdateEnterprise = async (e: FormEvent) => {
 		e.preventDefault();
 
+		let formattedAddress;
+
+		if (address) {
+			formattedAddress = {
+				city: address.city,
+				street: address.street,
+				district: address.district,
+				state: address.state,
+				number,
+				cep,
+			};
+		}
+
 		const formatEnterprise: EnterpriseProps = {
-			id: 'PA08',
 			name: name,
-			address: {
-				city: 'city',
-				street: 'street',
-				district: 'utinga',
-				state: 'bahia',
-				number: '12',
-				cep: '47901212',
-			},
+			address: formattedAddress || null,
 			purpose,
 			status,
 		};
 
-		console.log({
-			status,
-			purpose,
-			name,
-			cep,
-		});
+		if (enterpriseId) {
+			const { updatedEnterprise, error } = await onUpdateEnterprise({
+				enterprise: formatEnterprise,
+				enterpriseId,
+			});
 
-		try {
-			const updateEnterpriseResponse: Response = await api.put(
-				`/enterprises/${enterpriseId}`,
-				formatEnterprise,
-				{
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				},
-			);
-			console.log(updateEnterpriseResponse.data);
+			if (error) {
+				console.log({ error });
+				return;
+			}
+
 			await onGetEnterprises();
-
-			onClose();
-		} catch (error) {
-			console.log(error);
 		}
+
+		onClose();
 	};
 
 	const handleUpdateFields = (enterprise: EnterpriseProps) => {
 		setPurpose(enterprise.purpose);
 		setStatus(enterprise.status);
 		setName(enterprise.name);
-		setCep(enterprise.address.cep);
+
+		if (enterprise.address) {
+			setCep(enterprise.address.cep);
+			setNumber(enterprise.address.number);
+		}
 	};
 
 	useEffect(() => {
 		const handleGetEnterprise = async () => {
 			try {
-				const enterpriseResponse: Response = await api.get(
-					`/enterprises/${enterpriseId || 'PA02'}`,
+				const enterpriseResponse: { data: EnterpriseProps } = await api.get(
+					`/enterprises/${enterpriseId}`,
 				);
 
 				handleUpdateFields(enterpriseResponse.data);
@@ -206,29 +185,24 @@ export const Modal = ({
 
 	useEffect(() => {
 		const getAddressData = async () => {
-			try {
-				const addressResponse: { data: ViaCepResponse } = await api.get(
-					`https://viacep.com.br/ws/${cep}/json/`,
-					{
-						baseURL: '',
-					},
-				);
+			const { address: addressData } = await onGetAddress({ cep });
 
-				// setAddress({
-				// 	cep,
-				// 	city
-				// })
-
-				console.log(addressResponse);
-			} catch (error) {
-				console.log({ error });
+			if (addressData) {
+				setAddress({
+					cep,
+					number,
+					city: addressData.city,
+					district: addressData.district,
+					state: addressData.state,
+					street: addressData.street,
+				});
 			}
 		};
 
 		if (cep.length === 8) {
 			getAddressData();
 		}
-	}, [cep]);
+	}, [cep, number]);
 
 	return (
 		<ModalWrapper>
@@ -241,7 +215,9 @@ export const Modal = ({
 						height={24}
 					/>
 				</CloseButton>
-				<ModalTitle>Editar Empreendimento</ModalTitle>
+				<ModalTitle>
+					{mode === 'update' ? 'Atualizar' : 'Criar'} Empreendimento
+				</ModalTitle>
 				<ModalForm
 					onSubmit={
 						mode === 'create' ? handleCreateEnterprise : handleUpdateEnterprise
@@ -252,6 +228,7 @@ export const Modal = ({
 							options={enterpriseStatusOptions}
 							value={status}
 							onChange={(e: any) => setStatus(e.target.value)}
+							required
 						/>
 					</ModalInputWrapper>
 					<ModalInputWrapper>
@@ -259,6 +236,7 @@ export const Modal = ({
 							options={enterprisePurposeOptions}
 							value={purpose}
 							onChange={(e: any) => setPurpose(e.target.value)}
+							required
 						/>
 					</ModalInputWrapper>
 					<ModalInputWrapper>
@@ -266,6 +244,7 @@ export const Modal = ({
 							placeholder='Nome do empreendimento'
 							value={name}
 							onChange={e => setName(e.target.value)}
+							required
 						/>
 					</ModalInputWrapper>
 					<ModalInputWrapper>
@@ -273,10 +252,30 @@ export const Modal = ({
 							placeholder='CEP'
 							value={cep}
 							onChange={e => setCep(e.target.value)}
+							required
+						/>
+					</ModalInputWrapper>
+					<div className='address-info'>
+						{address && (
+							<div>
+								<p>{address.street}</p>
+								<p>{address.district}</p>
+								<p>{address.city}</p>
+								<p>{address.state}</p>
+							</div>
+						)}
+					</div>
+					<ModalInputWrapper>
+						<InputComponent
+							placeholder='Número'
+							type='number'
+							value={number}
+							onChange={e => setNumber(String(e.target.value))}
+							required
 						/>
 					</ModalInputWrapper>
 					<Button type='submit' buttonSize='2xl'>
-						Atualizar
+						{mode === 'update' ? 'Atualizar' : 'Criar'}
 					</Button>
 				</ModalForm>
 			</ModalContent>

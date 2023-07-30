@@ -11,6 +11,11 @@ export const AppMainContainer = styled.main`
 		align-items: center;
 		justify-content: center;
 	}
+
+	.not-found {
+		color: ${({ theme }) => theme.colors['text-color-secondary']};
+		text-align: center;
+	}
 `;
 
 export const AppEnterprisesContainer = styled.div`

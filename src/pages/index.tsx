@@ -19,10 +19,8 @@ interface Response {
 }
 
 export default function Home({ enterprises_list }: HomeProps) {
-	// const [enterprises, setEnterprises] =
-	// 	useState<Enterprise[]>(enterprises_list);
-
-	const { handleSetEnterprises, enterprises, onAddPageCount } = useEnterprise();
+	const { handleSetEnterprises, enterprises, onAddPageCount, isLastPage } =
+		useEnterprise();
 
 	useEffect(() => {
 		handleSetEnterprises(enterprises_list);
@@ -41,11 +39,17 @@ export default function Home({ enterprises_list }: HomeProps) {
 					))}
 				</AppEnterprisesContainer>
 
-				<div className='load-more-btn'>
-					<Button buttonSize='xl' onClick={onAddPageCount}>
-						Carregar mais
-					</Button>
-				</div>
+				{enterprises.length <= 0 && (
+					<p className='not-found'>Nenhum resultado</p>
+				)}
+
+				{enterprises.length > 0 && !isLastPage && (
+					<div className='load-more-btn'>
+						<Button buttonSize='xl' onClick={onAddPageCount}>
+							Carregar mais
+						</Button>
+					</div>
+				)}
 			</AppMainContainer>
 		</>
 	);
@@ -55,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	let enterprises: EnterpriseProps[] = [];
 
 	try {
-		const response: Response = await api.get('/enterprises?&_limit=2&_page=1');
+		const response: Response = await api.get('/enterprises?&_limit=5&_page=1');
 		const enterprisesData = response.data;
 
 		enterprises = enterprisesData;

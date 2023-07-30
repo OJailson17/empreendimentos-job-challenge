@@ -21,6 +21,7 @@ interface EnterpriseContextProps {
 	showModal: boolean;
 	onGetEnterprises: () => Promise<void>;
 	onAddPageCount: () => void;
+	isLastPage: boolean;
 }
 
 interface Response {
@@ -37,43 +38,40 @@ export const EnterpriseProvider = ({ children }: EnterpriseProviderProps) => {
 	const [showModal, setShowModal] = useState(false);
 	const [page, setPage] = useState(1);
 	const [totalPages, setTotalPages] = useState('1');
+	const [isLastPage, setIsLastPage] = useState(false);
 
 	const handleSetEnterprises = (enterprises_list: EnterpriseProps[]) => {
 		setEnterprises(enterprises_list);
 	};
 
 	const handleToggleModal = () => {
-		console.log('hello');
 		setShowModal(previousShowModal => !previousShowModal);
 	};
 
-	// const handleGetEnterprises = async () => {
-	// 	try {
-	// 		const response: { data: EnterpriseProps[] } = await api.get(
-	// 			'/enterprises?_limit=2&_page=1',
-	// 		);
-	// 		setEnterprises(response.data);
-	// 	} catch (error) {
-	// 		console.log({ error });
-	// 	}
-	// };
-
 	const handleAddPageCount = async () => {
 		console.log(totalPages);
-		if (page <= Number(totalPages)) {
-			setPage(currentPage => currentPage + 1);
+
+		if (page === Number(totalPages)) {
+			setIsLastPage(true);
+			return;
 		}
+
+		// if (page <= Number(totalPages)) {
+		setPage(currentPage => currentPage + 1);
+		// }
 	};
 
 	const handleGetEnterprises = useCallback(async () => {
 		try {
 			const enterpriseResponse: Response = await api.get(
-				`/enterprises/?&_limit=2&_page=${String(page)}`,
+				`/enterprises/?&_limit=5&_page=${String(page)}`,
 			);
 			const enterprisesData = enterpriseResponse.data;
+			const itemsPerPage = 5;
 
-			const limitPages =
-				Number(enterpriseResponse.headers['x-total-count']) / 2;
+			const limitPages = Math.ceil(
+				Number(enterpriseResponse.headers['x-total-count']) / itemsPerPage,
+			);
 			setTotalPages(String(limitPages));
 
 			const formatEnterprises = enterprises.concat(enterprisesData);
@@ -89,7 +87,7 @@ export const EnterpriseProvider = ({ children }: EnterpriseProviderProps) => {
 		if (page > 1) {
 			handleGetEnterprises();
 		}
-	}, [page]);
+	}, [handleGetEnterprises, page]);
 
 	return (
 		<EnterpriseContext.Provider
@@ -100,6 +98,7 @@ export const EnterpriseProvider = ({ children }: EnterpriseProviderProps) => {
 				onToggleModal: handleToggleModal,
 				onGetEnterprises: handleGetEnterprises,
 				onAddPageCount: handleAddPageCount,
+				isLastPage,
 			}}
 		>
 			{children}

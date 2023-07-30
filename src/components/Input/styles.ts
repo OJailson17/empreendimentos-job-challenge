@@ -50,5 +50,11 @@ export const InputContainer = styled.div`
 			font-size: 1rem;
 			color: ${({ theme }) => theme.colors['text-color-primary']};
 		}
+
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
 	}
 `;

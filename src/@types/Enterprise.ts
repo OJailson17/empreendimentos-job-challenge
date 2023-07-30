@@ -10,9 +10,9 @@ export type AddressProps = {
 };
 
 export type EnterpriseProps = {
-	id: string;
+	id?: string;
 	name: string;
 	status: StatusProps;
 	purpose: PurposeProps;
-	address: AddressProps;
+	address: AddressProps | null;
 };

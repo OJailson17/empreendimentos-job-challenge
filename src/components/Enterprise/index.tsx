@@ -16,7 +16,7 @@ interface EnterpriseComponentProps {
 }
 
 const Status = {
-	'SOON-RELEASE': 'Breve Lançamento',
+	'SOON-RELEASE': 'Breve',
 	RELEASE: 'Lançamento',
 	BUILDING: 'Em obras',
 	READY: 'Pronto pra mmorar',

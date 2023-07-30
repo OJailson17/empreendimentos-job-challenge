@@ -29,6 +29,12 @@ export const ModalForm = styled.form`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+
+	.address-info {
+		width: 100%;
+		height: 4.5rem;
+		margin-bottom: 1.3125rem;
+	}
 `;
 
 export const ModalTitle = styled.h2`
