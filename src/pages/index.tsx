@@ -21,39 +21,8 @@ interface Response {
 export default function Home({ enterprises_list }: HomeProps) {
 	// const [enterprises, setEnterprises] =
 	// 	useState<Enterprise[]>(enterprises_list);
-	const [page, setPage] = useState(1);
 
-	const { handleSetEnterprises, enterprises } = useEnterprise();
-
-	const handleLoadEnterprises = useCallback(async () => {
-		try {
-			const enterpriseResponse: Response = await api.get(
-				`/enterprises/?&_limit=2&_page=${String(page)}`,
-			);
-			const enterprisesData = enterpriseResponse.data;
-
-			const formatEnterprises = enterprises.concat(enterprisesData);
-
-			handleSetEnterprises(formatEnterprises);
-			console.log({ formatEnterprises });
-		} catch (error) {
-			console.log({ error });
-		}
-	}, [page]);
-
-	const handleAddPageCount = async () => {
-		setPage(currentPage => currentPage + 1);
-	};
-
-	useEffect(() => {
-		const fetchEnterprises = async () => {
-			await handleLoadEnterprises();
-		};
-
-		if (page > 1) {
-			fetchEnterprises();
-		}
-	}, [handleLoadEnterprises, page]);
+	const { handleSetEnterprises, enterprises, onAddPageCount } = useEnterprise();
 
 	useEffect(() => {
 		handleSetEnterprises(enterprises_list);
@@ -73,7 +42,7 @@ export default function Home({ enterprises_list }: HomeProps) {
 				</AppEnterprisesContainer>
 
 				<div className='load-more-btn'>
-					<Button buttonSize='xl' onClick={handleAddPageCount}>
+					<Button buttonSize='xl' onClick={onAddPageCount}>
 						Carregar mais
 					</Button>
 				</div>
@@ -86,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	let enterprises: EnterpriseProps[] = [];
 
 	try {
-		const response: Response = await api.get('/enterprises?_limit=2&_page=1');
+		const response: Response = await api.get('/enterprises?&_limit=2&_page=1');
 		const enterprisesData = response.data;
 
 		enterprises = enterprisesData;

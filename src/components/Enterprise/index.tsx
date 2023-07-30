@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { useEnterprise } from '@/hooks/useEnterprise';
 import { api } from '@/lib/axios';
 import { EnterpriseProps } from '@/@types/Enterprise';
+import { useState } from 'react';
+import { Modal } from '../Modal';
 
 interface EnterpriseComponentProps {
 	enterprise: EnterpriseProps;
@@ -26,9 +28,17 @@ const Purpose = {
 };
 
 export const Enterprise = ({ enterprise }: EnterpriseComponentProps) => {
+	const [showModal, setShowModal] = useState(false);
 	const { enterprises, handleSetEnterprises } = useEnterprise();
 
-	console.log('component', enterprises);
+	// const { showModal, onToggleModal } = useEnterprise();
+
+	const handleToggleModal = () => {
+		console.log('hello');
+		setShowModal(previousShowModal => !previousShowModal);
+	};
+
+	// console.log('component', enterprises);
 
 	const handleDeleteEnterprise = async () => {
 		try {
@@ -53,7 +63,7 @@ export const Enterprise = ({ enterprise }: EnterpriseComponentProps) => {
 					<p>{enterprise.name}</p>
 					{/* icons */}
 					<div className='actions'>
-						<button>
+						<button onClick={handleToggleModal}>
 							<Image src='/assets/pen-icon.svg' alt='' width={18} height={18} />
 						</button>
 						<button onClick={handleDeleteEnterprise}>
@@ -78,6 +88,14 @@ export const Enterprise = ({ enterprise }: EnterpriseComponentProps) => {
 				<Button fill={false}>{Status[enterprise.status]}</Button>
 				<Button fill={false}>{Purpose[enterprise.purpose]}</Button>
 			</EnterpriseRightContainer>
+
+			{showModal && (
+				<Modal
+					onClose={handleToggleModal}
+					mode='update'
+					enterpriseId={enterprise.id}
+				/>
+			)}
 		</EnterpriseWrapper>
 	);
 };
