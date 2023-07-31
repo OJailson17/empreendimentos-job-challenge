@@ -1,15 +1,11 @@
 import React, { FormEvent, useState } from 'react';
-import {
-	// IconContainer,
-	// InputContainer,
-	SearchBarContainer,
-	// SearchBarWrapper,
-} from './styles';
-// import Image from 'next/image';
-import { InputComponent } from '../Input';
-import { api } from '@/lib/axios';
+
 import { EnterpriseProps } from '@/@types/Enterprise';
 import { useEnterprise } from '@/hooks/useEnterprise';
+import { api } from '@/lib/axios';
+
+import { InputComponent } from '../Input';
+import { SearchBarContainer } from './styles';
 
 interface Response {
 	data: EnterpriseProps[];

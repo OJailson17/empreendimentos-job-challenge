@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { HeaderComponent } from './styles';
+
+import { useScreenWidth } from '@/hooks/useScreenWidth';
+
 import { Button } from '../Button';
 import { Modal } from '../Modal';
-import { useScreenWidth } from '@/hooks/useScreenWidth';
+import { HeaderComponent } from './styles';
 
 export const Header = () => {
 	const [showModal, setShowModal] = useState(false);

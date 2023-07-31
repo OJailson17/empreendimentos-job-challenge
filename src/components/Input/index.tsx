@@ -1,11 +1,7 @@
-import React, { ReactNode } from 'react';
-import {
-	IconContainer,
-	InputContainer,
-	// InputMainContainer,
-	InputWrapper,
-} from './styles';
 import Image from 'next/image';
+import React from 'react';
+
+import { IconContainer, InputContainer, InputWrapper } from './styles';
 
 interface InputComponentProps extends React.ComponentProps<'input'> {
 	icon?: boolean;

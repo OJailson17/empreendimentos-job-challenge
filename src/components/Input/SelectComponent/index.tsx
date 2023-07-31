@@ -1,6 +1,7 @@
 import React from 'react';
-import { Select } from './styles';
+
 import { InputWrapper } from '../styles';
+import { Select } from './styles';
 
 interface Option {
 	value: string;

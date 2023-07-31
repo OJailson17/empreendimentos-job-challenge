@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { ComponentProps, ReactNode } from 'react';
-import { ButtonComponent } from './styles';
 import Image from 'next/image';
+import React, { ReactNode } from 'react';
+
+import { ButtonComponent } from './styles';
 
 interface ButtonProps extends React.ComponentProps<'button'> {
 	fill?: boolean;

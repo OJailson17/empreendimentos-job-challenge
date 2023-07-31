@@ -48,10 +48,10 @@ export const ButtonComponent = styled.button<ButtonProps>`
 	color: ${({ theme, fill }) => getColor(theme, fill)};
 
 	&:hover {
-		transition: all ease-in 0.2s;
 		background: ${({ theme, fill }) => getHoverBackground(theme, fill)};
 		border: ${({ theme, fill }) => getHoverBorder(theme, fill)};
 		color: ${({ theme, fill }) => getHoverColor(theme, fill)};
+		transition: all ease-in 0.2s;
 
 		img {
 			filter: invert(0.8);

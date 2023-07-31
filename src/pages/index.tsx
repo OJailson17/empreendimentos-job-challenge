@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { GetServerSideProps } from 'next';
+import { useCallback, useEffect, useState } from 'react';
+
+import { EnterpriseProps } from '@/@types/Enterprise';
+import { Button } from '@/components/Button';
 import { Enterprise } from '@/components/Enterprise';
 import { Header } from '@/components/Header';
 import { SearchBar } from '@/components/SearchBar';
-import { api } from '@/lib/axios';
-import { GetServerSideProps } from 'next';
-import { AppEnterprisesContainer, AppMainContainer } from './styles';
-import { Button } from '@/components/Button';
-import { useCallback, useEffect, useState } from 'react';
 import { useEnterprise } from '@/hooks/useEnterprise';
-import { EnterpriseProps } from '@/@types/Enterprise';
+import { api } from '@/lib/axios';
+
+import { AppEnterprisesContainer, AppMainContainer } from './styles';
 
 interface HomeProps {
 	enterprises_list: EnterpriseProps[];

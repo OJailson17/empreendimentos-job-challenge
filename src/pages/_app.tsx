@@ -1,10 +1,11 @@
+import type { AppProps } from 'next/app';
+import { Inter } from 'next/font/google';
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
+
+import { EnterpriseProvider } from '@/context/EnterpriseContext';
 import { GlobalStyles } from '@/styles/global';
 import { defaultTheme } from '@/styles/theme/default';
-import type { AppProps } from 'next/app';
-import { ThemeProvider } from 'styled-components';
-import { Inter } from 'next/font/google';
-import { EnterpriseProvider } from '@/context/EnterpriseContext';
 
 const inter = Inter({ subsets: ['latin'] });
 

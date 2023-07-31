@@ -73,20 +73,6 @@
       "id": "mQY1E1t"
     },
     {
-      "name": "jogos vorazes",
-      "address": {
-        "city": "Utinga",
-        "street": "",
-        "district": "",
-        "state": "BA",
-        "number": "56",
-        "cep": "46810000"
-      },
-      "purpose": "HOME",
-      "status": "READY",
-      "id": "koJKBZY"
-    },
-    {
       "name": "nome muitolongo que precisa ser olhado com mais cuidado pra não ultrapassar os limites das linhas",
       "address": {
         "city": "Utinga",

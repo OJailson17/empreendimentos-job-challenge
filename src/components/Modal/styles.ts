@@ -1,16 +1,20 @@
-import { deviceBreakpoints } from '@/styles/breakpoints';
 import styled from 'styled-components';
 
+import { deviceBreakpoints } from '@/styles/breakpoints';
+
 export const ModalWrapper = styled.div`
+	width: 100%;
+	height: 100%;
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(48, 46, 69, 0.35);
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	background-color: rgba(48, 46, 69, 0.35);
+
 	z-index: 2;
 `;
 
@@ -22,7 +26,6 @@ export const ModalContent = styled.div`
 
 	background-color: ${({ theme }) => theme.colors['background-white']};
 	border-radius: 16px;
-	/* height: 646px; */
 
 	@media (max-width: ${deviceBreakpoints.desktop}) {
 		width: 70%;
@@ -60,7 +63,7 @@ export const ModalTitle = styled.h2`
 	font-size: 18px;
 	font-style: normal;
 	font-weight: 700;
-	line-height: 100%; /* 18px */
+	line-height: 100%;
 	text-align: center;
 `;
 
@@ -68,26 +71,23 @@ export const CloseButton = styled.button`
 	position: absolute;
 	top: 19px;
 	right: 17px;
-	background-color: transparent;
-	border: none;
-	font-size: 20px;
-	cursor: pointer;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	background-color: transparent;
+	border: none;
+	font-size: 20px;
+
+	cursor: pointer;
 `;
 
 export const ModalInputWrapper = styled.div`
 	width: 100%;
 	max-width: 396px;
+	margin-bottom: 20px;
 
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 20px;
 `;
-
-// export const Input = styled.input`
-// 	padding: 5px;
-// 	margin-bottom: 10px;
-// `;

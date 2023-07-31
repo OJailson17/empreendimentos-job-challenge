@@ -1,5 +1,6 @@
-import { deviceBreakpoints } from '@/styles/breakpoints';
 import styled from 'styled-components';
+
+import { deviceBreakpoints } from '@/styles/breakpoints';
 
 export const HeaderComponent = styled.header`
 	width: 100%;
@@ -31,9 +32,5 @@ export const HeaderComponent = styled.header`
 	}
 	@media (max-width: ${deviceBreakpoints.mobileSM}) {
 		padding: 1.75rem 1.5rem;
-
-		h1 {
-			font-size: 1.25rem;
-		}
 	}
 `;

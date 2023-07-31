@@ -1,23 +1,20 @@
 import { styled } from 'styled-components';
 
 export const InputWrapper = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
 	width: 100%;
 	height: 40px;
 
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	gap: 16px;
+
 	border: none;
 	border-bottom: 2px solid #bbb8d9;
 `;
 
 export const IconContainer = styled.div`
 	height: 100%;
-	/*   background: yellow; */
 
 	display: flex;
 	align-items: center;

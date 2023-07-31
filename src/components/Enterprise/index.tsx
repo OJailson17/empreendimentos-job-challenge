@@ -1,15 +1,17 @@
+import Image from 'next/image';
+import { useState } from 'react';
+
+import { EnterpriseProps } from '@/@types/Enterprise';
+import { useEnterprise } from '@/hooks/useEnterprise';
+import { api } from '@/lib/axios';
+
+import { Button } from '../Button';
+import { Modal } from '../Modal';
 import {
 	EnterpriseLeftContainer,
 	EnterpriseRightContainer,
 	EnterpriseWrapper,
 } from './styles';
-import { Button } from '../Button';
-import Image from 'next/image';
-import { useEnterprise } from '@/hooks/useEnterprise';
-import { api } from '@/lib/axios';
-import { EnterpriseProps } from '@/@types/Enterprise';
-import { useState } from 'react';
-import { Modal } from '../Modal';
 
 interface EnterpriseComponentProps {
 	enterprise: EnterpriseProps;

@@ -1,5 +1,6 @@
-import { deviceBreakpoints } from '@/styles/breakpoints';
 import { styled } from 'styled-components';
+
+import { deviceBreakpoints } from '@/styles/breakpoints';
 
 export const AppMainContainer = styled.main`
 	padding: 0 8.5rem 0 10.25rem;
@@ -28,9 +29,9 @@ export const AppMainContainer = styled.main`
 `;
 
 export const AppEnterprisesContainer = styled.div`
+	margin-bottom: 3rem;
+
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
-
-	margin-bottom: 3rem;
 `;

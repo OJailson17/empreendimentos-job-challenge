@@ -1,5 +1,6 @@
-import { deviceBreakpoints } from '@/styles/breakpoints';
 import { styled } from 'styled-components';
+
+import { deviceBreakpoints } from '@/styles/breakpoints';
 
 export const SearchBarContainer = styled.form`
 	max-width: 1400px;

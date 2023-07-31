@@ -1,11 +1,10 @@
-import { deviceBreakpoints } from '@/styles/breakpoints';
 import { styled } from 'styled-components';
 
+import { deviceBreakpoints } from '@/styles/breakpoints';
+
 export const EnterpriseWrapper = styled.div`
-	/* height: 7.125rem; */
-	/* margin: 0 auto; */
-	padding: 2rem;
 	max-width: 1400px;
+	padding: 2rem;
 
 	display: flex;
 	align-items: flex-start;
@@ -26,26 +25,20 @@ export const EnterpriseWrapper = styled.div`
 
 export const EnterpriseLeftContainer = styled.div`
 	width: 60%;
-	/* background: red; */
 
 	& > div {
 		display: flex;
 		gap: 18px;
 
 		p {
-			/* width: 80%; */
 			font-size: 20px;
 			font-weight: bold;
 			line-height: 100%;
 
-			/* text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden; */
-
 			overflow: hidden;
 			display: -webkit-box;
 			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 3; /* start showing ellipsis when 3rd line is reached */
+			-webkit-line-clamp: 3;
 			white-space: pre-wrap;
 
 			color: ${({ theme }) => theme.colors['text-color-primary']};
@@ -81,8 +74,9 @@ export const EnterpriseLeftContainer = styled.div`
 	}
 
 	span {
-		display: block;
 		margin-top: 1rem;
+
+		display: block;
 
 		color: ${({ theme }) => theme.colors['text-color-secondary']};
 		font-size: 0.875rem;
@@ -90,16 +84,14 @@ export const EnterpriseLeftContainer = styled.div`
 `;
 
 export const EnterpriseRightContainer = styled.div`
-	/* width: 100%; */
-
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: 1rem;
 
 	@media (max-width: ${deviceBreakpoints.tablet}) {
-		gap: 0.5rem;
 		flex: 1;
+		gap: 0.5rem;
 	}
 
 	@media (max-width: ${deviceBreakpoints.mobile}) {

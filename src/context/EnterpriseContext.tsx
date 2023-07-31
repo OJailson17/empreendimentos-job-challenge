@@ -1,7 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { EnterpriseProps } from '@/@types/Enterprise';
-import { api } from '@/lib/axios';
-import { AxiosRequestHeaders, AxiosResponseHeaders } from 'axios';
 import {
 	ReactNode,
 	createContext,
@@ -9,6 +6,9 @@ import {
 	useEffect,
 	useState,
 } from 'react';
+
+import { EnterpriseProps } from '@/@types/Enterprise';
+import { api } from '@/lib/axios';
 
 interface EnterpriseProviderProps {
 	children: ReactNode;

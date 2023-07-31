@@ -1,5 +1,3 @@
-'use client';
-
 export const defaultTheme = {
 	colors: {
 		background: '#F8F7FC',

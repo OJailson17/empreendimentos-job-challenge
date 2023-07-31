@@ -1,6 +1,22 @@
-// components/Modal.js
-
+import Image from 'next/image';
 import React, { FormEvent, useEffect, useState } from 'react';
+
+import {
+	AddressProps,
+	EnterpriseProps,
+	PurposeProps,
+	StatusProps,
+} from '@/@types/Enterprise';
+import { useEnterprise } from '@/hooks/useEnterprise';
+import { useScreenWidth } from '@/hooks/useScreenWidth';
+import { api } from '@/lib/axios';
+import { onCreateEnterprise } from '@/utils/functions/createEnterprise';
+import { onGetAddress } from '@/utils/functions/getAddress';
+import { onUpdateEnterprise } from '@/utils/functions/updateEnterprise';
+
+import { Button } from '../Button';
+import { InputComponent } from '../Input';
+import { SelectComponent } from '../Input/SelectComponent';
 import {
 	CloseButton,
 	ModalContent,
@@ -9,30 +25,11 @@ import {
 	ModalTitle,
 	ModalWrapper,
 } from './styles';
-import { Button } from '../Button';
-import Image from 'next/image';
-import { InputComponent } from '../Input';
-import { api } from '@/lib/axios';
-import {
-	AddressProps,
-	EnterpriseProps,
-	PurposeProps,
-	StatusProps,
-} from '@/@types/Enterprise';
-import { useForm } from 'react-hook-form';
-import { SelectComponent } from '../Input/SelectComponent';
-import { useEnterprise } from '@/hooks/useEnterprise';
-import axios from 'axios';
-import { onGetAddress } from '@/utils/functions/getAddress';
-import { onCreateEnterprise } from '@/utils/functions/createEnterprise';
-import { onUpdateEnterprise } from '@/utils/functions/updateEnterprise';
-import { useScreenWidth } from '@/hooks/useScreenWidth';
 
 interface ModalProps {
 	onClose: () => void;
 	mode?: 'create' | 'update';
 	enterpriseId?: string | null;
-	onSubmit?: () => Promise<void>;
 }
 
 const enterprisePurposeOptions = [
@@ -65,12 +62,7 @@ const enterpriseStatusOptions = [
 	},
 ];
 
-export const Modal = ({
-	onClose,
-	mode,
-	enterpriseId,
-	onSubmit,
-}: ModalProps) => {
+export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 	const [status, setStatus] = useState<StatusProps>('RELEASE');
 	const [purpose, setPurpose] = useState<PurposeProps>('HOME');
 	const [name, setName] = useState<string>('');
@@ -79,8 +71,6 @@ export const Modal = ({
 	const [address, setAddress] = useState<AddressProps | null>(null);
 
 	const screenWidth = useScreenWidth();
-
-	console.log(enterpriseId);
 
 	const { handleSetEnterprises, enterprises, onGetEnterprises } =
 		useEnterprise();
