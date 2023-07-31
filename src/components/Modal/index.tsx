@@ -81,12 +81,7 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 	// get the screen viewport to change submit button size
 	const screenWidth = useScreenWidth();
 
-	const {
-		handleSetEnterprises,
-		enterprises,
-		onGetEnterprises,
-		onResetPageCount,
-	} = useEnterprise();
+	const { onGetEnterprises } = useEnterprise();
 
 	const handleCreateEnterprise = async (
 		enterpriseFormData: EnterpriseFormType,
@@ -115,8 +110,7 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 			enterprise: formatEnterprise,
 		});
 
-		if (createdEnterprise)
-			handleSetEnterprises([...enterprises, createdEnterprise]);
+		if (createdEnterprise) await onGetEnterprises();
 
 		onClose();
 	};
@@ -153,7 +147,6 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 			await onGetEnterprises();
 		}
 
-		// onResetPageCount();
 		onClose();
 	};
 

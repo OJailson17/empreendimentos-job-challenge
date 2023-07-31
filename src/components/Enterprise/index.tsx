@@ -88,10 +88,12 @@ export const Enterprise = ({ enterprise }: EnterpriseComponentProps) => {
 					</div>
 				</div>
 
-				<span>
-					{enterprise.address?.street}, {enterprise.address?.number} -{' '}
-					{enterprise.address?.district}, {enterprise.address?.city}
-				</span>
+				{enterprise.address && (
+					<span>
+						{enterprise.address?.street}, {enterprise.address?.number} -{' '}
+						{enterprise.address?.district}, {enterprise.address?.city}
+					</span>
+				)}
 			</EnterpriseLeftContainer>
 
 			{/* Second inner container */}

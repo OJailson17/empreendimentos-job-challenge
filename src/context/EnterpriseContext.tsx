@@ -19,7 +19,6 @@ interface EnterpriseContextProps {
 	handleSetEnterprises: (props: EnterpriseProps[]) => void;
 	onGetEnterprises: () => Promise<void>;
 	onAddPageCount: () => void;
-	onResetPageCount: () => void;
 	isLastPage: boolean;
 }
 
@@ -48,12 +47,7 @@ export const EnterpriseProvider = ({ children }: EnterpriseProviderProps) => {
 		}
 	};
 
-	const handleResetPageCount = () => {
-		setPage(1);
-	};
-
 	const handleGetEnterprises = useCallback(async () => {
-		console.log('called');
 		const itemsPerPage = 5;
 
 		try {
@@ -89,7 +83,6 @@ export const EnterpriseProvider = ({ children }: EnterpriseProviderProps) => {
 				handleSetEnterprises,
 				onGetEnterprises: handleGetEnterprises,
 				onAddPageCount: handleAddPageCount,
-				onResetPageCount: handleResetPageCount,
 				isLastPage,
 			}}
 		>

@@ -58,20 +58,6 @@
       "purpose": "HOME",
       "status": "SOON-RELEASE",
       "id": "50QrUgk"
-    },
-    {
-      "name": "Teste De novow",
-      "address": {
-        "city": "São Paulo",
-        "street": "Estrada da Baronesa",
-        "district": "Parque Bologne",
-        "state": "SP",
-        "number": "34",
-        "cep": "04941175"
-      },
-      "purpose": "COMMERCIAL",
-      "status": "RELEASE",
-      "id": "zNFJUOk"
     }
   ]
 }
