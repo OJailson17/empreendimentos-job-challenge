@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 import { EnterpriseProps } from '@/@types/Enterprise';
 import { api } from '@/lib/axios';
 
@@ -23,11 +25,24 @@ export const onCreateEnterprise = async ({
 			},
 		);
 
+		toast('Empreendimento Criado', {
+			theme: 'light',
+			type: 'success',
+			position: 'top-center',
+			autoClose: 3000,
+		});
+
 		return {
 			createdEnterprise: createEnterpriseResponse.data,
 		};
 	} catch (error) {
 		console.log(error);
+		toast('Algo deu errado!', {
+			theme: 'light',
+			type: 'error',
+			position: 'top-center',
+			autoClose: 3000,
+		});
 		return {
 			error,
 		};

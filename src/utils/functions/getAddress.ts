@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 import { api } from '@/lib/axios';
 
 interface ViaCepResponse {
@@ -6,7 +8,7 @@ interface ViaCepResponse {
 	localidade: string;
 	uf: string;
 	complemento: string;
-	error?: boolean;
+	erro?: boolean;
 }
 
 interface Response {
@@ -26,10 +28,16 @@ export const onGetAddress = async ({ cep }: GetAddressProps) => {
 			},
 		);
 
-		if (addressResponse.data.error) {
+		if (addressResponse.data.erro) {
+			toast('CEP Não encontrado', {
+				theme: 'light',
+				type: 'error',
+				position: 'top-center',
+				autoClose: 3000,
+			});
+
 			return {
 				address: null,
-				// error: addressResponse.data.error
 			};
 		}
 
@@ -44,6 +52,13 @@ export const onGetAddress = async ({ cep }: GetAddressProps) => {
 			address: formatAddress,
 		};
 	} catch (error) {
+		toast('CEP Não encontrado', {
+			theme: 'light',
+			type: 'error',
+			position: 'top-center',
+			autoClose: 3000,
+		});
+
 		console.log({ error });
 		return {
 			address: null,
