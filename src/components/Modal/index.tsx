@@ -1,22 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Image from 'next/image';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
-import {
-	AddressProps,
-	EnterpriseProps,
-	PurposeProps,
-	StatusProps,
-} from '@/@types/Enterprise';
+import { AddressProps, EnterpriseProps } from '@/@types/Enterprise';
 import { useEnterprise } from '@/hooks/useEnterprise';
 import { useScreenWidth } from '@/hooks/useScreenWidth';
 import { api } from '@/lib/axios';
 import { onCreateEnterprise } from '@/utils/functions/createEnterprise';
 import { onGetAddress } from '@/utils/functions/getAddress';
 import { onUpdateEnterprise } from '@/utils/functions/updateEnterprise';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Button } from '../Button';
 import { InputComponent } from '../Input';
 import { SelectComponent } from '../Input/SelectComponent';
+import { EnterpriseFormType, enterpriseSchema } from './enterpriseSchema';
 import {
 	CloseButton,
 	ModalContent,
@@ -46,7 +45,7 @@ const enterprisePurposeOptions = [
 const enterpriseStatusOptions = [
 	{
 		value: 'SOON-RELEASE',
-		label: 'Breve Lançamento',
+		label: 'Lançamento Breve',
 	},
 	{
 		value: 'RELEASE',
@@ -63,22 +62,31 @@ const enterpriseStatusOptions = [
 ];
 
 export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
-	const [status, setStatus] = useState<StatusProps>('RELEASE');
-	const [purpose, setPurpose] = useState<PurposeProps>('HOME');
-	const [name, setName] = useState<string>('');
-	const [cep, setCep] = useState<string>('');
-	const [number, setNumber] = useState('');
 	const [address, setAddress] = useState<AddressProps | null>(null);
+
+	const {
+		register,
+		handleSubmit,
+		watch,
+		control,
+		setValue,
+		formState: { errors },
+	} = useForm<EnterpriseFormType>({
+		resolver: yupResolver(enterpriseSchema),
+	});
+
+	const watchCep = watch('cep');
+	const watchNumber = watch('number');
 
 	const screenWidth = useScreenWidth();
 
 	const { handleSetEnterprises, enterprises, onGetEnterprises } =
 		useEnterprise();
 
-	const handleCreateEnterprise = async (e: FormEvent) => {
-		e.preventDefault();
-
-		let formattedAddress;
+	const handleCreateEnterprise = async (
+		enterpriseFormData: EnterpriseFormType,
+	) => {
+		let formattedAddress: AddressProps | null = null;
 
 		if (address) {
 			formattedAddress = {
@@ -86,19 +94,19 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 				street: address.street,
 				district: address.district,
 				state: address.state,
-				number,
-				cep,
+				number: String(enterpriseFormData.number),
+				cep: enterpriseFormData.cep,
 			};
 		}
 
 		const formatEnterprise: EnterpriseProps = {
-			name: name,
+			name: enterpriseFormData.name,
 			address: formattedAddress || null,
-			purpose,
-			status,
+			purpose: enterpriseFormData.purpose,
+			status: enterpriseFormData.status,
 		};
 
-		const { createdEnterprise, error } = await onCreateEnterprise({
+		const { createdEnterprise } = await onCreateEnterprise({
 			enterprise: formatEnterprise,
 		});
 
@@ -107,10 +115,10 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 		onClose();
 	};
 
-	const handleUpdateEnterprise = async (e: FormEvent) => {
-		e.preventDefault();
-
-		let formattedAddress;
+	const handleUpdateEnterprise = async (
+		enterpriseFormData: EnterpriseFormType,
+	) => {
+		let formattedAddress: AddressProps | null = null;
 
 		if (address) {
 			formattedAddress = {
@@ -118,20 +126,20 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 				street: address.street,
 				district: address.district,
 				state: address.state,
-				number,
-				cep,
+				number: String(enterpriseFormData.number),
+				cep: enterpriseFormData.cep,
 			};
 		}
 
 		const formatEnterprise: EnterpriseProps = {
-			name: name,
+			name: enterpriseFormData.name,
 			address: formattedAddress || null,
-			purpose,
-			status,
+			purpose: enterpriseFormData.purpose,
+			status: enterpriseFormData.status,
 		};
 
 		if (enterpriseId) {
-			const { updatedEnterprise, error } = await onUpdateEnterprise({
+			const { error } = await onUpdateEnterprise({
 				enterprise: formatEnterprise,
 				enterpriseId,
 			});
@@ -148,13 +156,23 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 	};
 
 	const handleUpdateFields = (enterprise: EnterpriseProps) => {
-		setPurpose(enterprise.purpose);
-		setStatus(enterprise.status);
-		setName(enterprise.name);
+		setValue('purpose', enterprise.purpose, {
+			shouldValidate: true,
+		});
+		setValue('status', enterprise.status, {
+			shouldValidate: true,
+		});
+		setValue('name', enterprise.name, {
+			shouldValidate: true,
+		});
 
 		if (enterprise.address) {
-			setCep(enterprise.address.cep);
-			setNumber(enterprise.address.number);
+			setValue('cep', enterprise.address?.cep, {
+				shouldValidate: true,
+			});
+			setValue('number', Number(enterprise.address?.number), {
+				shouldValidate: true,
+			});
 		}
 	};
 
@@ -178,12 +196,14 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 
 	useEffect(() => {
 		const getAddressData = async () => {
-			const { address: addressData } = await onGetAddress({ cep });
+			const { address: addressData } = await onGetAddress({
+				cep: String(watchCep),
+			});
 
 			if (addressData) {
 				setAddress({
-					cep,
-					number,
+					cep: String(watchCep),
+					number: String(watchNumber),
 					city: addressData.city,
 					district: addressData.district,
 					state: addressData.state,
@@ -192,89 +212,89 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 			}
 		};
 
-		if (cep.length === 8) {
+		if (String(watchCep).length === 8) {
 			getAddressData();
 		}
-	}, [cep, number]);
+	}, [watchCep]);
 
 	return (
-		<ModalWrapper>
-			<ModalContent>
-				<CloseButton onClick={onClose}>
-					<Image
-						src={'/assets/close-icon.svg'}
-						alt='close button'
-						width={24}
-						height={24}
-					/>
-				</CloseButton>
-				<ModalTitle>
-					{mode === 'update' ? 'Atualizar' : 'Criar'} Empreendimento
-				</ModalTitle>
-				<ModalForm
-					onSubmit={
-						mode === 'create' ? handleCreateEnterprise : handleUpdateEnterprise
-					}
-				>
-					<ModalInputWrapper>
-						<SelectComponent
-							options={enterpriseStatusOptions}
-							value={status}
-							onChange={(e: any) => setStatus(e.target.value)}
-							required
+		<>
+			<ModalWrapper>
+				<ModalContent>
+					<CloseButton onClick={onClose}>
+						<Image
+							src={'/assets/close-icon.svg'}
+							alt='close button'
+							width={24}
+							height={24}
 						/>
-					</ModalInputWrapper>
-					<ModalInputWrapper>
-						<SelectComponent
-							options={enterprisePurposeOptions}
-							value={purpose}
-							onChange={(e: any) => setPurpose(e.target.value)}
-							required
-						/>
-					</ModalInputWrapper>
-					<ModalInputWrapper>
-						<InputComponent
-							placeholder='Nome do empreendimento'
-							value={name}
-							onChange={e => setName(e.target.value)}
-							required
-						/>
-					</ModalInputWrapper>
-					<ModalInputWrapper>
-						<InputComponent
-							placeholder='CEP'
-							value={cep}
-							onChange={e => setCep(e.target.value)}
-							required
-						/>
-					</ModalInputWrapper>
-					<div className='address-info'>
-						{address && (
-							<div>
-								<p>{address.street}</p>
-								<p>{address.district}</p>
-								<p>{address.city}</p>
-								<p>{address.state}</p>
-							</div>
-						)}
-					</div>
-					<ModalInputWrapper>
-						<InputComponent
-							placeholder='Número'
-							type='number'
-							value={number}
-							onChange={e => setNumber(String(e.target.value))}
-							required
-						/>
-					</ModalInputWrapper>
-					<Button
-						type='submit'
-						buttonSize={screenWidth && screenWidth < 500 ? 'xl' : '2xl'}
+					</CloseButton>
+					<ModalTitle>
+						{mode === 'update' ? 'Atualizar' : 'Criar'} Empreendimento
+					</ModalTitle>
+					<ModalForm
+						onSubmit={
+							mode === 'create'
+								? handleSubmit(handleCreateEnterprise)
+								: handleSubmit(handleUpdateEnterprise)
+						}
 					>
-						{mode === 'update' ? 'Atualizar' : 'Criar'}
-					</Button>
-				</ModalForm>
-			</ModalContent>
-		</ModalWrapper>
+						<ModalInputWrapper>
+							<SelectComponent
+								options={enterpriseStatusOptions}
+								error={errors?.status}
+								{...register('status')}
+							/>
+						</ModalInputWrapper>
+						<ModalInputWrapper>
+							<SelectComponent
+								options={enterprisePurposeOptions}
+								error={errors?.purpose}
+								{...register('purpose')}
+							/>
+						</ModalInputWrapper>
+						<ModalInputWrapper>
+							<InputComponent
+								placeholder='Nome do empreendimento'
+								{...register('name')}
+								error={errors?.name}
+							/>
+						</ModalInputWrapper>
+						<ModalInputWrapper>
+							<InputComponent
+								placeholder='CEP'
+								type='number'
+								{...register('cep')}
+								error={errors?.cep}
+							/>
+						</ModalInputWrapper>
+						<div className='address-info'>
+							{address && (
+								<div>
+									<p>{address.street}</p>
+									<p>{address.district}</p>
+									<p>{address.city}</p>
+									<p>{address.state}</p>
+								</div>
+							)}
+						</div>
+						<ModalInputWrapper>
+							<InputComponent
+								placeholder='Número'
+								type='number'
+								{...register('number')}
+								error={errors?.number}
+							/>
+						</ModalInputWrapper>
+						<Button
+							type='submit'
+							buttonSize={screenWidth && screenWidth < 500 ? 'xl' : '2xl'}
+						>
+							{mode === 'update' ? 'Atualizar' : 'Criar'}
+						</Button>
+					</ModalForm>
+				</ModalContent>
+			</ModalWrapper>
+		</>
 	);
 };

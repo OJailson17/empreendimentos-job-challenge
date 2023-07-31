@@ -56,3 +56,10 @@ export const InputContainer = styled.div`
 		}
 	}
 `;
+
+export const ErrorMessage = styled.span`
+	margin-top: 0.5rem;
+
+	font-size: 14px;
+	color: #ff4444;
+`;

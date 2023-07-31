@@ -1,29 +1,42 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { forwardRef } from 'react';
+import { FieldError } from 'react-hook-form';
 
-import { IconContainer, InputContainer, InputWrapper } from './styles';
+import {
+	ErrorMessage,
+	IconContainer,
+	InputContainer,
+	InputWrapper,
+} from './styles';
 
 interface InputComponentProps extends React.ComponentProps<'input'> {
 	icon?: boolean;
-	select?: boolean;
 	options?: string[];
+	error?: FieldError;
 }
 
-export const InputComponent: React.FC<InputComponentProps> = ({
-	icon = false,
-	select,
-	...rest
-}: InputComponentProps) => {
+//
+const InputComponentBase: React.ForwardRefRenderFunction<
+	HTMLInputElement,
+	InputComponentProps
+> = ({ icon = false, error, ...rest }, ref) => {
 	return (
-		<InputWrapper>
+		<InputWrapper style={error ? { borderBottomColor: '#ff4444' } : {}}>
 			{icon && (
 				<IconContainer>
 					<Image src='/assets/search-icon.svg' alt='' width={16} height={16} />
 				</IconContainer>
 			)}
 			<InputContainer>
-				<input type='text' {...rest} />
+				<input ref={ref} type='text' {...rest} />
+				{error && <ErrorMessage>{error.message}</ErrorMessage>}
 			</InputContainer>
 		</InputWrapper>
 	);
 };
+
+InputComponentBase.displayName = 'InputComponent';
+
+export const InputComponent = forwardRef<HTMLInputElement, InputComponentProps>(
+	InputComponentBase,
+);

@@ -16,3 +16,10 @@ export const Select = styled.select`
 		font-size: 1rem;
 	}
 `;
+
+export const ErrorMessage = styled.span`
+	margin-top: 0.5rem;
+
+	font-size: 14px;
+	color: red;
+`;

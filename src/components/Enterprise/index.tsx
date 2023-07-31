@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { EnterpriseProps } from '@/@types/Enterprise';
 import { useEnterprise } from '@/hooks/useEnterprise';
@@ -33,14 +34,9 @@ export const Enterprise = ({ enterprise }: EnterpriseComponentProps) => {
 	const [showModal, setShowModal] = useState(false);
 	const { enterprises, handleSetEnterprises } = useEnterprise();
 
-	// const { showModal, onToggleModal } = useEnterprise();
-
 	const handleToggleModal = () => {
-		console.log('hello');
 		setShowModal(previousShowModal => !previousShowModal);
 	};
-
-	// console.log('component', enterprises);
 
 	const handleDeleteEnterprise = async () => {
 		try {
@@ -50,8 +46,21 @@ export const Enterprise = ({ enterprise }: EnterpriseComponentProps) => {
 				enterprise_el => enterprise_el.id !== enterprise.id,
 			);
 
+			toast('Deletado com sucesso', {
+				theme: 'light',
+				type: 'success',
+				position: 'top-center',
+				autoClose: 3000,
+			});
+
 			handleSetEnterprises(formattedEnterprises);
 		} catch (error) {
+			toast('Algo deu errado', {
+				theme: 'light',
+				type: 'error',
+				position: 'top-center',
+				autoClose: 3000,
+			});
 			console.log({ error });
 		}
 	};
