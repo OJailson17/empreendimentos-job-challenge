@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { GetServerSideProps } from 'next';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { EnterpriseProps } from '@/@types/Enterprise';
 import { Button } from '@/components/Button';
@@ -45,7 +45,7 @@ export default function Home({ enterprises_list }: HomeProps) {
 					<p className='not-found'>Nenhum resultado</p>
 				)}
 
-				{enterprises.length > 0 && !isLastPage && (
+				{!isLastPage && (
 					<div className='load-more-btn'>
 						<Button buttonSize='xl' onClick={onAddPageCount}>
 							Carregar mais
@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	let enterprises: EnterpriseProps[] = [];
 
 	try {
-		const response: Response = await api.get('/enterprises?&_limit=10&_page=1');
+		const response: Response = await api.get('/enterprises?&_limit=2&_page=1');
 		const enterprisesData = response.data;
 
 		enterprises = enterprisesData;

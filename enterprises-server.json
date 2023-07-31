@@ -73,18 +73,32 @@
       "id": "mQY1E1t"
     },
     {
-      "name": "nome muitolongo que precisa ser olhado com mais cuidado pra não ultrapassar os limites das linhas",
+      "name": "casa de aluguel",
       "address": {
-        "city": "Utinga",
-        "street": "",
-        "district": "",
-        "state": "BA",
-        "number": "912",
-        "cep": "46810000"
+        "city": "São Paulo",
+        "street": "Rua Gregório dos Reis Mello",
+        "district": "Jardim Nakamura",
+        "state": "SP",
+        "number": "123",
+        "cep": "04942110"
       },
       "purpose": "HOME",
-      "status": "BUILDING",
-      "id": "xSYEndB"
+      "status": "RELEASE",
+      "id": "oErLU64"
+    },
+    {
+      "name": "nova casa residencial",
+      "address": {
+        "city": "São Paulo",
+        "street": "Rua Gregório dos Reis Mello",
+        "district": "Jardim Nakamura",
+        "state": "SP",
+        "number": "45",
+        "cep": "04942110"
+      },
+      "purpose": "HOME",
+      "status": "RELEASE",
+      "id": "o7B0y7b"
     }
   ]
 }

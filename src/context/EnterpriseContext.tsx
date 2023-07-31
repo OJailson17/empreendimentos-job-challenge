@@ -37,7 +37,7 @@ export const EnterpriseProvider = ({ children }: EnterpriseProviderProps) => {
 	const [enterprises, setEnterprises] = useState<EnterpriseProps[]>([]);
 	const [showModal, setShowModal] = useState(false);
 	const [page, setPage] = useState(1);
-	const [totalPages, setTotalPages] = useState('1');
+	const [totalPages, setTotalPages] = useState(1);
 	const [isLastPage, setIsLastPage] = useState(false);
 
 	const handleSetEnterprises = (enterprises_list: EnterpriseProps[]) => {
@@ -49,44 +49,37 @@ export const EnterpriseProvider = ({ children }: EnterpriseProviderProps) => {
 	};
 
 	const handleAddPageCount = async () => {
-		console.log(totalPages);
-
-		if (page === Number(totalPages)) {
-			setIsLastPage(true);
-			return;
+		if (page < totalPages) {
+			setPage(currentPage => currentPage + 1);
 		}
-
-		// if (page <= Number(totalPages)) {
-		setPage(currentPage => currentPage + 1);
-		// }
 	};
 
 	const handleGetEnterprises = useCallback(async () => {
 		try {
 			const enterpriseResponse: Response = await api.get(
-				`/enterprises/?&_limit=5&_page=${String(page)}`,
+				`/enterprises/?&_limit=2&_page=${String(page)}`,
 			);
 			const enterprisesData = enterpriseResponse.data;
-			const itemsPerPage = 5;
+			const itemsPerPage = 2;
 
 			const limitPages = Math.ceil(
 				Number(enterpriseResponse.headers['x-total-count']) / itemsPerPage,
 			);
-			setTotalPages(String(limitPages));
+
+			setTotalPages(limitPages);
+
+			if (page >= limitPages) setIsLastPage(true);
 
 			const formatEnterprises = enterprises.concat(enterprisesData);
 
 			handleSetEnterprises(formatEnterprises);
-			console.log({ formatEnterprises });
 		} catch (error) {
 			console.log({ error });
 		}
 	}, [page]);
 
 	useEffect(() => {
-		if (page > 1) {
-			handleGetEnterprises();
-		}
+		handleGetEnterprises();
 	}, [handleGetEnterprises, page]);
 
 	return (
