@@ -19,7 +19,7 @@ const Status = {
 	'SOON-RELEASE': 'Breve',
 	RELEASE: 'Lançamento',
 	BUILDING: 'Em obras',
-	READY: 'Pronto pra mmorar',
+	READY: 'Pronto',
 };
 
 const Purpose = {
@@ -78,8 +78,8 @@ export const Enterprise = ({ enterprise }: EnterpriseComponentProps) => {
 				</div>
 
 				<span>
-					{enterprise.address.street}, {enterprise.address.number} -{' '}
-					{enterprise.address.district}, {enterprise.address.city}
+					{enterprise.address?.street}, {enterprise.address?.number} -{' '}
+					{enterprise.address?.district}, {enterprise.address?.city}
 				</span>
 			</EnterpriseLeftContainer>
 

@@ -6,7 +6,7 @@ interface ButtonProps {
 }
 
 const buttonSizes = {
-	sm: '',
+	sm: '1rem',
 	md: '7.375rem', // 118px
 	lg: '11rem', // 176px
 	xl: '11.9375rem', // 191px

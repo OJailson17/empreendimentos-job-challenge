@@ -59,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	let enterprises: EnterpriseProps[] = [];
 
 	try {
-		const response: Response = await api.get('/enterprises?&_limit=5&_page=1');
+		const response: Response = await api.get('/enterprises?&_limit=10&_page=1');
 		const enterprisesData = response.data;
 
 		enterprises = enterprisesData;

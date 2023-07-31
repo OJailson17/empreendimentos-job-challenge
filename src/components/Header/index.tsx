@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { HeaderComponent } from './styles';
 import { Button } from '../Button';
 import { Modal } from '../Modal';
-import { useEnterprise } from '@/hooks/useEnterprise';
+import { useScreenWidth } from '@/hooks/useScreenWidth';
 
 export const Header = () => {
 	const [showModal, setShowModal] = useState(false);
 
-	// const { showModal, onToggleModal } = useEnterprise();
+	const screenWidth = useScreenWidth();
 
 	const handleToggleModal = () => {
-		console.log('hello');
 		setShowModal(previousShowModal => !previousShowModal);
 	};
 
@@ -18,8 +17,13 @@ export const Header = () => {
 		<HeaderComponent>
 			<h1>Empreendimentos</h1>
 
-			<Button buttonSize='lg' icon onClick={handleToggleModal}>
-				Adicionar
+			<Button
+				buttonSize={screenWidth && screenWidth < 500 ? 'sm' : 'xl'}
+				icon
+				onClick={handleToggleModal}
+			>
+				{/* Adicionar */}
+				{screenWidth && screenWidth > 500 && 'Adicionar'}
 			</Button>
 			{showModal && <Modal onClose={handleToggleModal} mode='create' />}
 		</HeaderComponent>

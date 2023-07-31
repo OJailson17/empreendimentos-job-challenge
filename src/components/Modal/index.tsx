@@ -26,6 +26,7 @@ import axios from 'axios';
 import { onGetAddress } from '@/utils/functions/getAddress';
 import { onCreateEnterprise } from '@/utils/functions/createEnterprise';
 import { onUpdateEnterprise } from '@/utils/functions/updateEnterprise';
+import { useScreenWidth } from '@/hooks/useScreenWidth';
 
 interface ModalProps {
 	onClose: () => void;
@@ -76,6 +77,8 @@ export const Modal = ({
 	const [cep, setCep] = useState<string>('');
 	const [number, setNumber] = useState('');
 	const [address, setAddress] = useState<AddressProps | null>(null);
+
+	const screenWidth = useScreenWidth();
 
 	console.log(enterpriseId);
 
@@ -274,7 +277,10 @@ export const Modal = ({
 							required
 						/>
 					</ModalInputWrapper>
-					<Button type='submit' buttonSize='2xl'>
+					<Button
+						type='submit'
+						buttonSize={screenWidth && screenWidth < 500 ? 'xl' : '2xl'}
+					>
 						{mode === 'update' ? 'Atualizar' : 'Criar'}
 					</Button>
 				</ModalForm>

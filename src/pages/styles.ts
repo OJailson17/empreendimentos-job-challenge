@@ -1,3 +1,4 @@
+import { deviceBreakpoints } from '@/styles/breakpoints';
 import { styled } from 'styled-components';
 
 export const AppMainContainer = styled.main`
@@ -15,6 +16,14 @@ export const AppMainContainer = styled.main`
 	.not-found {
 		color: ${({ theme }) => theme.colors['text-color-secondary']};
 		text-align: center;
+	}
+
+	@media (max-width: ${deviceBreakpoints.tablet}) {
+		padding: 0 4.5rem 0 6rem;
+	}
+
+	@media (max-width: ${deviceBreakpoints.mobile}) {
+		padding: 0 1rem 0 1rem;
 	}
 `;
 

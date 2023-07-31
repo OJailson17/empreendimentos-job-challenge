@@ -1,3 +1,4 @@
+import { deviceBreakpoints } from '@/styles/breakpoints';
 import styled from 'styled-components';
 
 export const ModalWrapper = styled.div`
@@ -6,10 +7,11 @@ export const ModalWrapper = styled.div`
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: rgba(48, 46, 69, 0.35);
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	z-index: 2;
 `;
 
 export const ModalContent = styled.div`
@@ -21,6 +23,18 @@ export const ModalContent = styled.div`
 	background-color: ${({ theme }) => theme.colors['background-white']};
 	border-radius: 16px;
 	/* height: 646px; */
+
+	@media (max-width: ${deviceBreakpoints.desktop}) {
+		width: 70%;
+	}
+
+	@media (max-width: ${deviceBreakpoints.tablet}) {
+		width: 90%;
+	}
+
+	@media (max-width: ${deviceBreakpoints.mobile}) {
+		padding: 1.375rem 2.5rem 2.1875rem;
+	}
 `;
 export const ModalForm = styled.form`
 	margin-top: 4.0625rem;
@@ -34,6 +48,10 @@ export const ModalForm = styled.form`
 		width: 100%;
 		height: 4.5rem;
 		margin-bottom: 1.3125rem;
+	}
+
+	& > button {
+		margin-top: 38px;
 	}
 `;
 
