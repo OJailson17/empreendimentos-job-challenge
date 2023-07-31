@@ -9,6 +9,7 @@ interface ViaCepResponse {
 	uf: string;
 	complemento: string;
 	erro?: boolean;
+	cep: string;
 }
 
 interface Response {
@@ -41,11 +42,14 @@ export const onGetAddress = async ({ cep }: GetAddressProps) => {
 			};
 		}
 
+		const formatCep = addressResponse.data.cep.split('-').join('');
+
 		const formatAddress = {
 			city: addressResponse.data.localidade,
 			district: addressResponse.data.bairro,
 			street: addressResponse.data.logradouro,
 			state: addressResponse.data.uf,
+			cep: addressResponse.data.cep,
 		};
 
 		return {

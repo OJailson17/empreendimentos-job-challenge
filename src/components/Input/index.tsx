@@ -11,11 +11,14 @@ import {
 
 interface InputComponentProps extends React.ComponentProps<'input'> {
 	icon?: boolean;
-	options?: string[];
 	error?: FieldError;
 }
 
-//
+/*
+Generics was needed to get all the input attributes without passing individually on props
+and to forward the ref from useForm to the input element
+This is needed when using separated input
+*/
 const InputComponentBase: React.ForwardRefRenderFunction<
 	HTMLInputElement,
 	InputComponentProps
@@ -35,6 +38,7 @@ const InputComponentBase: React.ForwardRefRenderFunction<
 	);
 };
 
+// required when using forwardRef
 InputComponentBase.displayName = 'InputComponent';
 
 export const InputComponent = forwardRef<HTMLInputElement, InputComponentProps>(

@@ -1,12 +1,12 @@
 import { styled } from 'styled-components';
 
+import { displayFlexStyle } from '@/styles/global';
+
 export const InputWrapper = styled.div`
 	width: 100%;
 	height: 40px;
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	${displayFlexStyle};
 	gap: 16px;
 
 	border: none;

@@ -68,20 +68,25 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 		register,
 		handleSubmit,
 		watch,
-		control,
 		setValue,
 		formState: { errors },
 	} = useForm<EnterpriseFormType>({
 		resolver: yupResolver(enterpriseSchema),
 	});
 
+	// watch cep and number input values to get address data
 	const watchCep = watch('cep');
 	const watchNumber = watch('number');
 
+	// get the screen viewport to change submit button size
 	const screenWidth = useScreenWidth();
 
-	const { handleSetEnterprises, enterprises, onGetEnterprises } =
-		useEnterprise();
+	const {
+		handleSetEnterprises,
+		enterprises,
+		onGetEnterprises,
+		onResetPageCount,
+	} = useEnterprise();
 
 	const handleCreateEnterprise = async (
 		enterpriseFormData: EnterpriseFormType,
@@ -112,6 +117,7 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 
 		if (createdEnterprise)
 			handleSetEnterprises([...enterprises, createdEnterprise]);
+
 		onClose();
 	};
 
@@ -131,7 +137,7 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 			};
 		}
 
-		const formatEnterprise: EnterpriseProps = {
+		const formattedEnterprise: EnterpriseProps = {
 			name: enterpriseFormData.name,
 			address: formattedAddress || null,
 			purpose: enterpriseFormData.purpose,
@@ -139,22 +145,19 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 		};
 
 		if (enterpriseId) {
-			const { error } = await onUpdateEnterprise({
-				enterprise: formatEnterprise,
+			await onUpdateEnterprise({
+				enterprise: formattedEnterprise,
 				enterpriseId,
 			});
-
-			if (error) {
-				console.log({ error });
-				return;
-			}
 
 			await onGetEnterprises();
 		}
 
+		// onResetPageCount();
 		onClose();
 	};
 
+	// Update the input fields after get enterprise data from api
 	const handleUpdateFields = (enterprise: EnterpriseProps) => {
 		setValue('purpose', enterprise.purpose, {
 			shouldValidate: true,
@@ -176,6 +179,7 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 		}
 	};
 
+	// If modal is with update mode ,then get the enterprise data using the id
 	useEffect(() => {
 		const handleGetEnterprise = async () => {
 			try {
@@ -194,6 +198,7 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 		}
 	}, [mode, enterpriseId]);
 
+	// When user type 8 digits on cep input, get the address data from api
 	useEffect(() => {
 		const getAddressData = async () => {
 			const { address: addressData } = await onGetAddress({
@@ -202,13 +207,15 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 
 			if (addressData) {
 				setAddress({
-					cep: String(watchCep),
+					cep: addressData.cep,
 					number: String(watchNumber),
 					city: addressData.city,
 					district: addressData.district,
 					state: addressData.state,
 					street: addressData.street,
 				});
+			} else {
+				setAddress(null);
 			}
 		};
 
@@ -233,6 +240,7 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 						{mode === 'update' ? 'Atualizar' : 'Criar'} Empreendimento
 					</ModalTitle>
 					<ModalForm
+						autoComplete='off'
 						onSubmit={
 							mode === 'create'
 								? handleSubmit(handleCreateEnterprise)

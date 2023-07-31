@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 * {
@@ -15,4 +15,10 @@ body {
 button {
   cursor: pointer;
 }
+`;
+
+export const displayFlexStyle = css`
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;

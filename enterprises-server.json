@@ -3,16 +3,17 @@
     {
       "id": "PA01",
       "name": "Sirius Vila Bastos",
-      "address": {
-        "city": "city",
-        "street": "street",
-        "district": "utinga",
-        "state": "bahia",
-        "number": "12",
-        "cep": "47901212"
-      },
+      "status": "RELEASE",
       "purpose": "HOME",
-      "status": "RELEASE"
+      "ri_number": "321123",
+      "address": {
+        "street": "Rua Lucinda Ferreira",
+        "number": "173",
+        "district": "Ipiranga",
+        "city": "São Paulo",
+        "state": "SP",
+        "cep": "60000000"
+      }
     },
     {
       "id": "PA02",
@@ -45,81 +46,32 @@
       }
     },
     {
-      "name": "Create updated again",
+      "name": "Novos Empreendimentos",
       "address": {
-        "city": "Utinga",
-        "street": "",
-        "district": "",
-        "state": "BA",
-        "number": "901",
-        "cep": "46810000"
+        "city": "São Paulo",
+        "street": "Rua Agamenon Pereira da Silva",
+        "district": "Jardim Nakamura",
+        "state": "SP",
+        "number": "12",
+        "cep": "04942020"
       },
       "purpose": "HOME",
-      "status": "BUILDING",
-      "id": "kdBl6xH"
+      "status": "SOON-RELEASE",
+      "id": "50QrUgk"
     },
     {
-      "name": "nova validação",
+      "name": "Teste De novow",
       "address": {
-        "city": "Utinga",
-        "street": "",
-        "district": "",
-        "state": "BA",
-        "number": "56",
-        "cep": "46810000"
+        "city": "São Paulo",
+        "street": "Estrada da Baronesa",
+        "district": "Parque Bologne",
+        "state": "SP",
+        "number": "34",
+        "cep": "04941175"
       },
       "purpose": "COMMERCIAL",
-      "status": "BUILDING",
-      "id": "mQY1E1t"
-    },
-    {
-      "name": "casa de aluguel",
-      "address": {
-        "city": "São Paulo",
-        "street": "Rua Gregório dos Reis Mello",
-        "district": "Jardim Nakamura",
-        "state": "SP",
-        "number": "123",
-        "cep": "04942110"
-      },
-      "purpose": "HOME",
       "status": "RELEASE",
-      "id": "oErLU64"
-    },
-    {
-      "name": "nova casa residencial",
-      "address": {
-        "city": "São Paulo",
-        "street": "Rua Gregório dos Reis Mello",
-        "district": "Jardim Nakamura",
-        "state": "SP",
-        "number": "45",
-        "cep": "04942110"
-      },
-      "purpose": "HOME",
-      "status": "RELEASE",
-      "id": "o7B0y7b"
-    },
-    {
-      "name": "novo empreendimento",
-      "address": null,
-      "purpose": "HOME",
-      "status": "RELEASE",
-      "id": "u5U8blC"
-    },
-    {
-      "name": "Cristo Redentorn",
-      "address": {
-        "city": "Utinga",
-        "street": "",
-        "district": "",
-        "state": "BA",
-        "number": "89",
-        "cep": "46810000"
-      },
-      "purpose": "HOME",
-      "status": "RELEASE",
-      "id": "xHpgdv5"
+      "id": "zNFJUOk"
     }
   ]
 }

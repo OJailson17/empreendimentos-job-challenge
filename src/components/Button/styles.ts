@@ -1,5 +1,7 @@
 import { styled } from 'styled-components';
 
+import { displayFlexStyle } from '@/styles/global';
+
 interface ButtonProps {
 	fill: boolean;
 	buttonSize: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -37,9 +39,7 @@ export const ButtonComponent = styled.button<ButtonProps>`
 	padding: ${({ buttonSize }) =>
 		buttonSize === 'md' ? '8px 24px' : '10px 40px'};
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	${displayFlexStyle};
 	gap: 8px;
 
 	background: ${({ theme, fill }) => getBackground(theme, fill)};

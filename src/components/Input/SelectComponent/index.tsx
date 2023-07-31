@@ -14,6 +14,11 @@ interface SelectProps extends React.ComponentProps<'select'> {
 	error?: FieldError;
 }
 
+/*
+Generics was needed to get all the select attributes without passing individually on props
+and to forward the ref from useForm to the select element
+This is needed when using separated input
+*/
 const SelectComponentBase: React.ForwardRefRenderFunction<
 	HTMLSelectElement,
 	SelectProps

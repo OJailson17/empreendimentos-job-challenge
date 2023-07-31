@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 
 import { deviceBreakpoints } from '@/styles/breakpoints';
+import { displayFlexStyle } from '@/styles/global';
 
 export const EnterpriseWrapper = styled.div`
 	max-width: 1400px;
@@ -45,9 +46,7 @@ export const EnterpriseLeftContainer = styled.div`
 		}
 
 		.actions {
-			display: flex;
-			align-items: center;
-			justify-content: center;
+			${displayFlexStyle};
 			gap: 10px;
 
 			button {
@@ -84,9 +83,7 @@ export const EnterpriseLeftContainer = styled.div`
 `;
 
 export const EnterpriseRightContainer = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	${displayFlexStyle};
 	gap: 1rem;
 
 	@media (max-width: ${deviceBreakpoints.tablet}) {

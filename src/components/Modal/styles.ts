@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { deviceBreakpoints } from '@/styles/breakpoints';
+import { displayFlexStyle } from '@/styles/global';
 
 export const ModalWrapper = styled.div`
 	width: 100%;
@@ -9,9 +10,7 @@ export const ModalWrapper = styled.div`
 	top: 0;
 	left: 0;
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	${displayFlexStyle};
 
 	background-color: rgba(48, 46, 69, 0.35);
 
@@ -42,10 +41,8 @@ export const ModalContent = styled.div`
 export const ModalForm = styled.form`
 	margin-top: 4.0625rem;
 
-	display: flex;
+	${displayFlexStyle};
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 
 	.address-info {
 		width: 100%;
@@ -72,9 +69,7 @@ export const CloseButton = styled.button`
 	top: 19px;
 	right: 17px;
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	${displayFlexStyle};
 
 	background-color: transparent;
 	border: none;

@@ -17,10 +17,9 @@ interface EnterpriseProviderProps {
 interface EnterpriseContextProps {
 	enterprises: EnterpriseProps[];
 	handleSetEnterprises: (props: EnterpriseProps[]) => void;
-	onToggleModal: () => void;
-	showModal: boolean;
 	onGetEnterprises: () => Promise<void>;
 	onAddPageCount: () => void;
+	onResetPageCount: () => void;
 	isLastPage: boolean;
 }
 
@@ -35,7 +34,6 @@ export const EnterpriseContext = createContext({} as EnterpriseContextProps);
 
 export const EnterpriseProvider = ({ children }: EnterpriseProviderProps) => {
 	const [enterprises, setEnterprises] = useState<EnterpriseProps[]>([]);
-	const [showModal, setShowModal] = useState(false);
 	const [page, setPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [isLastPage, setIsLastPage] = useState(false);
@@ -44,23 +42,25 @@ export const EnterpriseProvider = ({ children }: EnterpriseProviderProps) => {
 		setEnterprises(enterprises_list);
 	};
 
-	const handleToggleModal = () => {
-		setShowModal(previousShowModal => !previousShowModal);
-	};
-
-	const handleAddPageCount = async () => {
+	const handleAddPageCount = () => {
 		if (page < totalPages) {
 			setPage(currentPage => currentPage + 1);
 		}
 	};
 
+	const handleResetPageCount = () => {
+		setPage(1);
+	};
+
 	const handleGetEnterprises = useCallback(async () => {
+		console.log('called');
+		const itemsPerPage = 5;
+
 		try {
 			const enterpriseResponse: Response = await api.get(
-				`/enterprises/?&_limit=2&_page=${String(page)}`,
+				`/enterprises/?&_limit=${itemsPerPage}&_page=${String(page)}`,
 			);
 			const enterprisesData = enterpriseResponse.data;
-			const itemsPerPage = 2;
 
 			const limitPages = Math.ceil(
 				Number(enterpriseResponse.headers['x-total-count']) / itemsPerPage,
@@ -87,10 +87,9 @@ export const EnterpriseProvider = ({ children }: EnterpriseProviderProps) => {
 			value={{
 				enterprises,
 				handleSetEnterprises,
-				showModal,
-				onToggleModal: handleToggleModal,
 				onGetEnterprises: handleGetEnterprises,
 				onAddPageCount: handleAddPageCount,
+				onResetPageCount: handleResetPageCount,
 				isLastPage,
 			}}
 		>

@@ -39,13 +39,13 @@ export default function Home({ enterprises_list }: HomeProps) {
 					{enterprises.map(enterprise => (
 						<Enterprise key={enterprise?.id} enterprise={enterprise} />
 					))}
+
+					{enterprises.length <= 0 && (
+						<p className='not-found'>Nenhum resultado</p>
+					)}
 				</AppEnterprisesContainer>
 
-				{enterprises.length <= 0 && (
-					<p className='not-found'>Nenhum resultado</p>
-				)}
-
-				{!isLastPage && (
+				{enterprises.length > 0 && !isLastPage && (
 					<div className='load-more-btn'>
 						<Button buttonSize='xl' onClick={onAddPageCount}>
 							Carregar mais
@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	let enterprises: EnterpriseProps[] = [];
 
 	try {
-		const response: Response = await api.get('/enterprises?&_limit=2&_page=1');
+		const response: Response = await api.get('/enterprises?&_limit=5&_page=1');
 		const enterprisesData = response.data;
 
 		enterprises = enterprisesData;
