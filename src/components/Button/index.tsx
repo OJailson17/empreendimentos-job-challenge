@@ -19,7 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
 	...rest
 }: ButtonProps) => {
 	return (
-		<ButtonComponent fill={fill} buttonSize={buttonSize} {...rest}>
+		<ButtonComponent fill={String(fill)} $buttonSize={buttonSize} {...rest}>
 			{children}
 			{icon && (
 				<Image
