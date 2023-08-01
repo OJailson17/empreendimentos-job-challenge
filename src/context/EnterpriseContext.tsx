@@ -48,7 +48,7 @@ export const EnterpriseProvider = ({ children }: EnterpriseProviderProps) => {
 	};
 
 	const handleGetEnterprises = useCallback(async () => {
-		const itemsPerPage = 3;
+		const itemsPerPage = 10;
 
 		try {
 			const enterpriseResponse: Response = await api.get(
