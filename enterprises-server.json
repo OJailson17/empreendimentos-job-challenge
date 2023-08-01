@@ -49,11 +49,11 @@
       "name": "Novos Empreendimentos",
       "address": {
         "city": "São Paulo",
-        "street": "Rua Agamenon Pereira da Silva",
-        "district": "Jardim Nakamura",
+        "street": "Estrada da Baronesa",
+        "district": "Parque Bologne",
         "state": "SP",
         "number": "12",
-        "cep": "04942020"
+        "cep": "04941175"
       },
       "purpose": "HOME",
       "status": "SOON-RELEASE",

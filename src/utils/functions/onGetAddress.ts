@@ -42,6 +42,7 @@ export const onGetAddress = async ({ cep }: GetAddressProps) => {
 			};
 		}
 
+		// remove hífen
 		const formatCep = addressResponse.data.cep.split('-').join('');
 
 		const formatAddress = {
@@ -49,7 +50,7 @@ export const onGetAddress = async ({ cep }: GetAddressProps) => {
 			district: addressResponse.data.bairro,
 			street: addressResponse.data.logradouro,
 			state: addressResponse.data.uf,
-			cep: addressResponse.data.cep,
+			cep: formatCep,
 		};
 
 		return {

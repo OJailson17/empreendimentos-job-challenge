@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { EnterpriseProps } from '@/@types/Enterprise';
 import { useEnterprise } from '@/hooks/useEnterprise';
 import { api } from '@/lib/axios';
+import { onDeleteEnterprise } from '@/utils/functions/onDeleteEnterprise';
 
 import { Button } from '../Button';
 import { Modal } from '../Modal';
@@ -32,36 +33,21 @@ const Purpose = {
 
 export const Enterprise = ({ enterprise }: EnterpriseComponentProps) => {
 	const [showModal, setShowModal] = useState(false);
-	const { enterprises, handleSetEnterprises } = useEnterprise();
+	const { onGetEnterprises } = useEnterprise();
 
 	const handleToggleModal = () => {
 		setShowModal(previousShowModal => !previousShowModal);
 	};
 
 	const handleDeleteEnterprise = async () => {
-		try {
-			await api.delete(`/enterprises/${enterprise.id}`);
-
-			const formattedEnterprises = enterprises.filter(
-				enterprise_el => enterprise_el.id !== enterprise.id,
-			);
-
-			toast('Deletado com sucesso', {
-				theme: 'light',
-				type: 'success',
-				position: 'top-center',
-				autoClose: 3000,
+		if (enterprise.id) {
+			const { success } = await onDeleteEnterprise({
+				enterpriseId: enterprise.id,
 			});
 
-			handleSetEnterprises(formattedEnterprises);
-		} catch (error) {
-			toast('Algo deu errado', {
-				theme: 'light',
-				type: 'error',
-				position: 'top-center',
-				autoClose: 3000,
-			});
-			console.log({ error });
+			if (success) {
+				await onGetEnterprises();
+			}
 		}
 	};
 

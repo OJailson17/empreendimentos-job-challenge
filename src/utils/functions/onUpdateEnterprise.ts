@@ -27,7 +27,7 @@ export const onUpdateEnterprise = async ({
 			},
 		);
 
-		toast('Salvo', {
+		toast('Empreendimento atualizado', {
 			theme: 'light',
 			type: 'success',
 			position: 'top-center',

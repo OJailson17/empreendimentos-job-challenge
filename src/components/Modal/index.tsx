@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { AddressProps, EnterpriseProps } from '@/@types/Enterprise';
 import { useEnterprise } from '@/hooks/useEnterprise';
 import { useScreenWidth } from '@/hooks/useScreenWidth';
 import { api } from '@/lib/axios';
-import { onCreateEnterprise } from '@/utils/functions/createEnterprise';
-import { onGetAddress } from '@/utils/functions/getAddress';
-import { onUpdateEnterprise } from '@/utils/functions/updateEnterprise';
+import { onCreateEnterprise } from '@/utils/functions/onCreateEnterprise';
+import { onGetAddress } from '@/utils/functions/onGetAddress';
+import { onUpdateEnterprise } from '@/utils/functions/onUpdateEnterprise';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Button } from '../Button';
@@ -99,7 +99,7 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 			};
 		}
 
-		const formatEnterprise: EnterpriseProps = {
+		const formattedEnterprise: EnterpriseProps = {
 			name: enterpriseFormData.name,
 			address: formattedAddress || null,
 			purpose: enterpriseFormData.purpose,
@@ -107,7 +107,7 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 		};
 
 		const { createdEnterprise } = await onCreateEnterprise({
-			enterprise: formatEnterprise,
+			enterprise: formattedEnterprise,
 		});
 
 		if (createdEnterprise) await onGetEnterprises();
