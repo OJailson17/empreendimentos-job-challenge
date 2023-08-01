@@ -26,16 +26,16 @@ export const ModalContent = styled.div`
 	background-color: ${({ theme }) => theme.colors['background-white']};
 	border-radius: 16px;
 
-	@media (max-width: ${deviceBreakpoints.desktop}) {
-		width: 70%;
+	@media (max-width: ${deviceBreakpoints.mobile}) {
+		padding: 1.375rem 2.5rem 2.1875rem;
 	}
 
 	@media (max-width: ${deviceBreakpoints.tablet}) {
 		width: 90%;
 	}
 
-	@media (max-width: ${deviceBreakpoints.mobile}) {
-		padding: 1.375rem 2.5rem 2.1875rem;
+	@media (max-width: ${deviceBreakpoints.desktop}) {
+		width: 70%;
 	}
 `;
 export const ModalForm = styled.form`

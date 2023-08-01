@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 
 import { deviceBreakpoints } from '@/styles/breakpoints';
+import { displayFlexStyle } from '@/styles/global';
 
 export const AppMainContainer = styled.main`
 	padding: 0 8.5rem 0 10.25rem;
@@ -29,9 +30,14 @@ export const AppMainContainer = styled.main`
 `;
 
 export const AppEnterprisesContainer = styled.div`
+	max-width: 1440px;
 	margin-bottom: 3rem;
 
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
+
+	@media (min-width: ${deviceBreakpoints.desktopXL}) {
+		margin: 0 auto;
+	}
 `;

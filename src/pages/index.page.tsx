@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { useEffect } from 'react';
 
 import { EnterpriseProps } from '@/@types/Enterprise';
@@ -30,6 +31,10 @@ export default function Home({ enterprises_list }: HomeProps) {
 
 	return (
 		<>
+			<Head>
+				<title>Empreendimentos</title>
+			</Head>
+
 			<Header />
 
 			<SearchBar />
@@ -61,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	let enterprises: EnterpriseProps[] = [];
 
 	try {
-		const response: Response = await api.get('/enterprises?&_limit=5&_page=1');
+		const response: Response = await api.get('/enterprises?&_limit=3&_page=1');
 		const enterprisesData = response.data;
 
 		enterprises = enterprisesData;

@@ -58,6 +58,20 @@
       "purpose": "COMMERCIAL",
       "status": "RELEASE",
       "id": "uahZjwX"
+    },
+    {
+      "name": "Pronto",
+      "address": {
+        "city": "Santo André",
+        "street": "Rua Senador Fláquer",
+        "district": "Centro",
+        "state": "SP",
+        "number": "45",
+        "cep": "09010160"
+      },
+      "purpose": "HOME",
+      "status": "READY",
+      "id": "o-lJHlM"
     }
   ]
 }

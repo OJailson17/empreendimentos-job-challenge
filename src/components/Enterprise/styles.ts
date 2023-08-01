@@ -4,7 +4,8 @@ import { deviceBreakpoints } from '@/styles/breakpoints';
 import { displayFlexStyle } from '@/styles/global';
 
 export const EnterpriseWrapper = styled.div`
-	max-width: 1400px;
+	width: 100%;
+	max-width: 1440px;
 	padding: 2rem;
 
 	display: flex;
@@ -15,12 +16,12 @@ export const EnterpriseWrapper = styled.div`
 	box-shadow: 0px 2px 4px 0px rgba(48, 46, 69, 0.06);
 	border-radius: 8px;
 
-	@media (max-width: ${deviceBreakpoints.tablet}) {
-		padding: 1.5rem;
-	}
-
 	@media (max-width: ${deviceBreakpoints.mobile}) {
 		padding: 1.2rem;
+	}
+
+	@media (max-width: ${deviceBreakpoints.tablet}) {
+		padding: 1.5rem;
 	}
 `;
 
@@ -86,12 +87,12 @@ export const EnterpriseRightContainer = styled.div`
 	${displayFlexStyle};
 	gap: 1rem;
 
+	@media (max-width: ${deviceBreakpoints.mobile}) {
+		flex-direction: column;
+	}
+
 	@media (max-width: ${deviceBreakpoints.tablet}) {
 		flex: 1;
 		gap: 0.5rem;
-	}
-
-	@media (max-width: ${deviceBreakpoints.mobile}) {
-		flex-direction: column;
 	}
 `;
