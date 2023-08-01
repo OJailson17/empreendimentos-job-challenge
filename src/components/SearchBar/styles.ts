@@ -8,11 +8,11 @@ export const SearchBarContainer = styled.form`
 	margin: 0 auto;
 	margin-top: 1.875rem;
 
-	@media (max-width: ${deviceBreakpoints.mobile}) {
-		padding: 0 2rem 0 2rem;
-	}
-
 	@media (max-width: ${deviceBreakpoints.tablet}) {
 		padding: 0 5rem 0 5rem;
+	}
+
+	@media (max-width: ${deviceBreakpoints.mobile}) {
+		padding: 0 2rem 0 2rem;
 	}
 `;

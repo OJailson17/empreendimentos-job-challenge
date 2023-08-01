@@ -38,5 +38,6 @@ export const AppEnterprisesContainer = styled.div`
 
 	@media (min-width: ${deviceBreakpoints.desktopXL}) {
 		margin: 0 auto;
+		margin-bottom: 3rem;
 	}
 `;
