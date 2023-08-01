@@ -20,8 +20,8 @@ export const HeaderComponent = styled.header`
 		font-size: 1.5rem;
 	}
 
-	@media (max-width: ${deviceBreakpoints.mobileSM}) {
-		padding: 1.75rem 1.5rem;
+	@media (max-width: ${deviceBreakpoints.tablet}) {
+		padding: 1.75rem 5rem;
 	}
 
 	@media (max-width: ${deviceBreakpoints.mobile}) {
@@ -31,11 +31,9 @@ export const HeaderComponent = styled.header`
 			font-size: 1.25rem;
 		}
 	}
-
-	@media (max-width: ${deviceBreakpoints.tablet}) {
-		padding: 1.75rem 5rem;
+	@media (max-width: ${deviceBreakpoints.mobileSM}) {
+		padding: 1.75rem 1.5rem;
 	}
-
 	@media (min-width: ${deviceBreakpoints.desktopXL}) {
 		margin: 0 auto;
 	}
