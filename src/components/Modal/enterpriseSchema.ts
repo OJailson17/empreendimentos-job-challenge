@@ -13,8 +13,8 @@ export const enterpriseSchema = yup.object({
 		.required('Campo obrigatório'),
 	number: yup
 		.number()
-		.required('Campo obrigatório')
-		.typeError('Campo precisa ser um número'),
+		.typeError('Campo precisa ser um número')
+		.required('Campo obrigatório'),
 	status: yup
 		.string()
 		.oneOf(['SOON-RELEASE', 'RELEASE', 'BUILDING', 'READY'])

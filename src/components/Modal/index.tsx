@@ -198,6 +198,7 @@ export const Modal = ({ onClose, mode, enterpriseId }: ModalProps) => {
 				cep: String(watchCep),
 			});
 
+			// don't save address if cep does not exist
 			if (addressData) {
 				setAddress({
 					cep: addressData.cep,

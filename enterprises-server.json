@@ -46,18 +46,18 @@
       }
     },
     {
-      "name": "Novos Empreendimentos",
+      "name": "nome do empreendimento",
       "address": {
-        "city": "São Paulo",
-        "street": "Estrada da Baronesa",
-        "district": "Parque Bologne",
-        "state": "SP",
-        "number": "12",
-        "cep": "04941175"
+        "city": "Utinga",
+        "street": "",
+        "district": "",
+        "state": "BA",
+        "number": "78",
+        "cep": "46810000"
       },
-      "purpose": "HOME",
-      "status": "SOON-RELEASE",
-      "id": "50QrUgk"
+      "purpose": "COMMERCIAL",
+      "status": "RELEASE",
+      "id": "uahZjwX"
     }
   ]
 }
