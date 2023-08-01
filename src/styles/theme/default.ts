@@ -9,10 +9,4 @@ export const defaultTheme = {
 		'text-color-primary': '#302e45',
 		'text-color-secondary': '#6d6c7b',
 	},
-	font: {
-		'title-md': {
-			size: '20px',
-			weight: 'bold',
-		},
-	},
 };

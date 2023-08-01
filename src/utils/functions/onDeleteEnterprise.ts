@@ -22,8 +22,6 @@ export const onDeleteEnterprise = async ({
 		return {
 			success: true,
 		};
-
-		// handleSetEnterprises(formattedEnterprises);
 	} catch (error) {
 		toast('Algo deu errado', {
 			theme: 'light',

@@ -1,7 +1,6 @@
 import { styled } from 'styled-components';
 
 import { deviceBreakpoints } from '@/styles/breakpoints';
-import { displayFlexStyle } from '@/styles/global';
 
 export const AppMainContainer = styled.main`
 	padding: 0 8.5rem 0 10.25rem;
