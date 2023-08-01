@@ -1,91 +1,371 @@
 {
-  "enterprises": [
-    {
-      "id": "PA01",
-      "name": "Sirius Vila Bastos",
-      "status": "RELEASE",
-      "purpose": "HOME",
-      "ri_number": "321123",
-      "address": {
-        "street": "Rua Lucinda Ferreira",
-        "number": "173",
-        "district": "Ipiranga",
-        "city": "São Paulo",
-        "state": "SP",
-        "cep": "60000000"
-      }
-    },
-    {
-      "id": "PA02",
-      "name": "Moriah Ipiranga",
-      "status": "RELEASE",
-      "purpose": "HOME",
-      "ri_number": "321123",
-      "address": {
-        "street": "Rua Lucinda Ferreira",
-        "number": "173",
-        "district": "Ipiranga",
-        "city": "São Paulo",
-        "state": "SP",
-        "cep": "60000000"
-      }
-    },
-    {
-      "id": "PA03",
-      "name": "Sirius Campinas",
-      "status": "RELEASE",
-      "purpose": "HOME",
-      "ri_number": "987654",
-      "address": {
-        "street": "Av. Aquidabã",
-        "number": "280",
-        "district": "Zona Heteleira Aquidabã",
-        "city": "Campinas",
-        "state": "SP",
-        "cep": "60000000"
-      }
-    },
-    {
-      "name": "novo empreendimento",
-      "address": {
-        "city": "São Paulo",
-        "street": "Estrada da Baronesa",
-        "district": "Parque Bologne",
-        "state": "SP",
-        "number": "78",
-        "cep": "04941175"
-      },
-      "purpose": "COMMERCIAL",
-      "status": "RELEASE",
-      "id": "uahZjwX"
-    },
-    {
-      "name": "Pronto",
-      "address": {
-        "city": "Santo André",
-        "street": "Rua Senador Fláquer",
-        "district": "Centro",
-        "state": "SP",
-        "number": "45",
-        "cep": "09010160"
-      },
-      "purpose": "HOME",
-      "status": "READY",
-      "id": "o-lJHlM"
-    },
-    {
-      "name": "nome do empreendimento atualizado",
-      "address": {
-        "city": "Santo André",
-        "street": "Rua Senador Fláquer",
-        "district": "Centro",
-        "state": "SP",
-        "number": "12",
-        "cep": "09010160"
-      },
-      "purpose": "HOME",
-      "status": "BUILDING",
-      "id": "OXHmu23"
-    }
-  ]
+	"enterprises": [
+		{
+			"id": "PA01",
+			"name": "Sirius Vila Bastos",
+			"status": "RELEASE",
+			"purpose": "HOME",
+			"ri_number": "321123",
+			"address": {
+				"street": "Rua Lucinda Ferreira",
+				"number": "173",
+				"district": "Ipiranga",
+				"city": "São Paulo",
+				"state": "SP",
+				"cep": "60000000"
+			}
+		},
+		{
+			"id": "PA02",
+			"name": "Moriah Ipiranga",
+			"status": "RELEASE",
+			"purpose": "HOME",
+			"ri_number": "321123",
+			"address": {
+				"street": "Rua Lucinda Ferreira",
+				"number": "173",
+				"district": "Ipiranga",
+				"city": "São Paulo",
+				"state": "SP",
+				"cep": "60000000"
+			}
+		},
+		{
+			"id": "PA03",
+			"name": "Sirius Campinas",
+			"status": "RELEASE",
+			"purpose": "HOME",
+			"ri_number": "987654",
+			"address": {
+				"street": "Av. Aquidabã",
+				"number": "280",
+				"district": "Zona Heteleira Aquidabã",
+				"city": "Campinas",
+				"state": "SP",
+				"cep": "60000000"
+			}
+		},
+		{
+			"name": "novo empreendimento",
+			"address": {
+				"city": "São Paulo",
+				"street": "Estrada da Baronesa",
+				"district": "Parque Bologne",
+				"state": "SP",
+				"number": "78",
+				"cep": "04941175"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "RELEASE",
+			"id": "uahZjwX"
+		},
+		{
+			"name": "Pronto",
+			"address": {
+				"city": "Santo André",
+				"street": "Rua Senador Fláquer",
+				"district": "Centro",
+				"state": "SP",
+				"number": "45",
+				"cep": "09010160"
+			},
+			"purpose": "HOME",
+			"status": "READY",
+			"id": "o-lJHlM"
+		},
+		{
+			"id": "OXHmu23",
+			"name": "nome do empreendimento atualizado",
+			"address": {
+				"city": "Santo André",
+				"street": "Rua Senador Fláquer",
+				"district": "Centro",
+				"state": "SP",
+				"number": "12",
+				"cep": "09010160"
+			},
+			"purpose": "HOME",
+			"status": "BUILDING"
+		},
+		{
+			"id": "OXHmu23",
+			"name": "Enterprise 1",
+			"address": {
+				"city": "Santo André",
+				"street": "Rua Senador Fláquer",
+				"district": "Centro",
+				"state": "SP",
+				"number": "12",
+				"cep": "09010160"
+			},
+			"purpose": "HOME",
+			"status": "BUILDING"
+		},
+		{
+			"id": "Dslk49E",
+			"name": "Enterprise 2",
+			"address": {
+				"city": "Santo André",
+				"street": "Avenida Portugal",
+				"district": "Jardim",
+				"state": "SP",
+				"number": "345",
+				"cep": "09120120"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "BUILDING"
+		},
+		{
+			"id": "PqrT12H",
+			"name": "Enterprise 3",
+			"address": {
+				"city": "São Paulo",
+				"street": "Avenida Paulista",
+				"district": "Bela Vista",
+				"state": "SP",
+				"number": "4567",
+				"cep": "01310100"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "SOON-RELEASE"
+		},
+		{
+			"id": "LmoG78Z",
+			"name": "Enterprise 4",
+			"address": {
+				"city": "São Paulo",
+				"street": "Rua Augusta",
+				"district": "Consolação",
+				"state": "SP",
+				"number": "789",
+				"cep": "01413100"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "BUILDING"
+		},
+		{
+			"id": "FghK23A",
+			"name": "Enterprise 5",
+			"address": {
+				"city": "Rio de Janeiro",
+				"street": "Avenida Atlântica",
+				"district": "Copacabana",
+				"state": "RJ",
+				"number": "456",
+				"cep": "22011010"
+			},
+			"purpose": "HOME",
+			"status": "READY"
+		},
+		{
+			"id": "IjkU12B",
+			"name": "Enterprise 6",
+			"address": {
+				"city": "Salvador",
+				"street": "Avenida Tancredo Neves",
+				"district": "Caminho das Árvores",
+				"state": "BA",
+				"number": "908",
+				"cep": "41820021"
+			},
+			"purpose": "HOME",
+			"status": "BUILDING"
+		},
+		{
+			"id": "LckP54R",
+			"name": "Enterprise 7",
+			"address": {
+				"city": "Brasília",
+				"street": "Esplanada dos Ministérios",
+				"district": "Zona Cívico-Administrativa",
+				"state": "DF",
+				"number": "1020",
+				"cep": "70150010"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "RELEASE"
+		},
+		{
+			"id": "EdeM32W",
+			"name": "Enterprise 8",
+			"address": {
+				"city": "Porto Alegre",
+				"street": "Avenida Borges de Medeiros",
+				"district": "Centro Histórico",
+				"state": "RS",
+				"number": "2045",
+				"cep": "90020907"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "SOON-RELEASE"
+		},
+		{
+			"id": "NolS67Q",
+			"name": "Enterprise 9",
+			"address": {
+				"city": "Curitiba",
+				"street": "Rua XV de Novembro",
+				"district": "Centro",
+				"state": "PR",
+				"number": "1500",
+				"cep": "80020030"
+			},
+			"purpose": "HOME",
+			"status": "BUILDING"
+		},
+		{
+			"id": "PoiH87T",
+			"name": "Enterprise 10",
+			"address": {
+				"city": "Fortaleza",
+				"street": "Avenida Beira Mar",
+				"district": "Meireles",
+				"state": "CE",
+				"number": "2900",
+				"cep": "60165121"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "READY"
+		},
+		{
+			"id": "MnBv32Y",
+			"name": "Enterprise 11",
+			"address": {
+				"city": "Belo Horizonte",
+				"street": "Avenida Afonso Pena",
+				"district": "Centro",
+				"state": "MG",
+				"number": "789",
+				"cep": "30130000"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "RELEASE"
+		},
+		{
+			"id": "KlJh54X",
+			"name": "Enterprise 12",
+			"address": {
+				"city": "Recife",
+				"street": "Avenida Boa Viagem",
+				"district": "Boa Viagem",
+				"state": "PE",
+				"number": "123",
+				"cep": "51021000"
+			},
+			"purpose": "HOME",
+			"status": "SOON-RELEASE"
+		},
+		{
+			"id": "PpZx68Q",
+			"name": "Enterprise 13",
+			"address": {
+				"city": "Natal",
+				"street": "Rua Mossoró",
+				"district": "Lagoa Nova",
+				"state": "RN",
+				"number": "456",
+				"cep": "59062510"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "RELEASE"
+		},
+		{
+			"id": "HbGf87R",
+			"name": "Enterprise 14",
+			"address": {
+				"city": "Manaus",
+				"street": "Avenida Constantino Nery",
+				"district": "Chapada",
+				"state": "AM",
+				"number": "7890",
+				"cep": "69050001"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "READY"
+		},
+		{
+			"id": "ZxCv23A",
+			"name": "Enterprise 15",
+			"address": {
+				"city": "Porto Velho",
+				"street": "Avenida Farquar",
+				"district": "Centro",
+				"state": "RO",
+				"number": "1234",
+				"cep": "76801006"
+			},
+			"purpose": "HOME",
+			"status": "READY"
+		},
+		{
+			"id": "QwEr45B",
+			"name": "Enterprise 16",
+			"address": {
+				"city": "Florianópolis",
+				"street": "Avenida Beira Mar Norte",
+				"district": "Centro",
+				"state": "SC",
+				"number": "789",
+				"cep": "88015400"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "READY"
+		},
+		{
+			"id": "TyUi76C",
+			"name": "Enterprise 17",
+			"address": {
+				"city": "Vitória",
+				"street": "Avenida Dante Michelini",
+				"district": "Praia de Camburi",
+				"state": "ES",
+				"number": "234",
+				"cep": "29060330"
+			},
+			"purpose": "HOME",
+			"status": "BUILDING"
+		},
+		{
+			"id": "AsDf98D",
+			"name": "Enterprise 18",
+			"address": {
+				"city": "Goiania",
+				"street": "Avenida República do Líbano",
+				"district": "Setor Oeste",
+				"state": "GO",
+				"number": "567",
+				"cep": "74115130"
+			},
+			"purpose": "HOME",
+			"status": "SOON-RELEASE"
+		},
+		{
+			"id": "JkLm23E",
+			"name": "Enterprise 19",
+			"address": {
+				"city": "Cuiabá",
+				"street": "Avenida Historiador Rubens de Mendonça",
+				"district": "Araés",
+				"state": "MT",
+				"number": "890",
+				"cep": "78008000"
+			},
+			"purpose": "COMMERCIAL",
+			"status": "RELEASE"
+		},
+		{
+			"id": "YtRb54F",
+			"name": "Enterprise 20",
+			"address": {
+				"city": "João Pessoa",
+				"street": "Avenida Epitácio Pessoa",
+				"district": "Centro",
+				"state": "PB",
+				"number": "123",
+				"cep": "58030001"
+			},
+			"purpose": "HOME",
+			"status": "READY"
+		}
+	]
 }
